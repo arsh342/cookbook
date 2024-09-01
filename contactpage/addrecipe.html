@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Add Your Recipe</title>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="header.css" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous" />
+    <style>
+        body {
+            font-family: "Roboto", sans-serif;
+            background-image: url('https://images.squarespace-cdn.com/content/v1/5fb59d11289b1d642b6993b5/1654699588476-PVI9FRFIPYMH7FYSKM1Z/custom_recipe_wallpaper_etsy_the_recipe_preserve_kitchen_pantry.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+        }
+
+        header li {
+            list-style: none;
+        }
+
+        header a {
+            text-decoration: none;
+            color: #000;
+            font-size: 1rem;
+        }
+
+        header a:hover {
+            color: var(--tenne-tawny);
+        }
+
+        header {
+            position: relative;
+            padding: 0 2rem;
+        }
+
+        .navbar {
+            width: 100%;
+            height: 80px;
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .navbar .logo img {
+            width: 100px;
+        }
+
+        .navbar a {
+            font-size: 15px;
+            font-weight: 600;
+        }
+
+        .navbar .links {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .navbar .toggle_btn {
+            font-size: 2.5rem;
+            cursor: pointer;
+            display: none;
+        }
+
+        .navbar .menu {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .action_btn {
+            background-color: var(--tenne-tawny);
+            color: #fff;
+            padding: 0.5rem 1rem;
+            border: none;
+            outline: none;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: scale 0.2s ease;
+        }
+
+        .action_btn:hover {
+            scale: 1.1;
+            transition: 0.2s;
+            color: #fff;
+            background-color: var(--tenne-tawny-dark);
+        }
+
+        .action_btn:active {
+            scale: 0.95;
+        }
+
+        .dropdown_menu {
+            display: none;
+            position: absolute;
+            right: 2rem;
+            top: 60px;
+            height: 0;
+            width: 300px;
+            background-color: #333;
+            backdrop-filter: blur(15px);
+            border-radius: 10px;
+            overflow: hidden;
+            transition: height 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .dropdown_menu.open {
+            height: 270px;
+        }
+
+        .dropdown_menu li {
+            padding: 0.7rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .dropdown_menu .action_btn {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+        }
+
+        @media(max-width: 992px) {
+
+            .navbar .links,
+            .navbar .action_btn {
+                display: none;
+            }
+
+            .navbar .toggle_btn {
+                display: block;
+            }
+
+            .dropdown_menu {
+                display: block;
+            }
+        }
+
+        @media(max-width: 576px) {
+            .dropdown_menu {
+                left: 2rem;
+                width: unset;
+            }
+        }
+
+        .container {
+            max-width: 800px;
+            margin-top: 50px;
+            background-color: #8fae66;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 0 rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            color: #343a40;
+        }
+
+        .form-control:focus {
+            border-color: #198754;
+            box-shadow: 0 0 0 0.2rem rgba(25, 135, 84, 0.25);
+        }
+
+        .btn-primary {
+            background-color: #198754;
+            border-color: #198754;
+        }
+
+        .btn-primary:hover {
+            background-color: #157347;
+            border-color: #157347;
+        }
+
+        footer {
+            background-color: #7fa154;
+            color: rgb(8, 8, 8);
+            padding: 20px 0;
+        }
+
+        footer a {
+            color: #0b4279;
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            color: white;
+        }
+
+        @media(max-width: 992px) {
+
+            .navbar .links,
+            .navbar .action_btn {
+                display: none;
+            }
+
+            .navbar .toggle_btn {
+                display: block;
+            }
+
+            .dropdown_menu {
+                display: block;
+            }
+        }
+
+        @media(max-width: 576px) {
+            .dropdown_menu {
+                left: 2rem;
+                width: unset;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <div class="navbar">
+            <div class="logo"><img src="https://i.postimg.cc/mDBsM7gV/Untitled-5-2-removebg-preview.png" alt="cookbook">
+            </div>
+            <ul class="links">
+                <li><a href="/homepage/index.html">Home</a></li>
+                <li><a href="/mainpage/index.html">Recipes</a></li>
+                <li><a href="/contactpage/addrecipe.html">Add Recipes</a></li>
+            </ul>
+            <ul>
+                <a href="/signpage/index.html" class="action_btn">Log In</a>
+                <a href="/signpage/index.html" class="action_btn">Get Started</a>
+            </ul>
+            <div class="toggle_btn">
+                <i class="fas fa-bars"></i>
+            </div>
+        </div>
+        <div class="dropdown_menu">
+            <li><a href="">Home</a>
+            <li><a href="">About</a></li>
+            <li><a href="">Contact</a></li>
+            <li><a href="">Login</a></li>
+            </li>
+            <li><a href="" class="action_btn">Log In</a></li>
+            <li><a href="" class="action_btn">Get Started</a></li>
+        </div>
+    </header>
+
+    <section class="container">
+        <h2 class="mb-4">Submit Your Recipe</h2>
+        <form>
+            <div class="mb-3">
+                <label for="recipeTitle" class="form-label">Recipe Title</label>
+                <input type="text" class="form-control" id="recipeTitle" placeholder="Enter the title of your recipe"
+                    required />
+                <div class="invalid-feedback">Please provide a recipe title.</div>
+            </div>
+            <div class="mb-3">
+                <label for="recipeDescription" class="form-label">Recipe Description</label>
+                <textarea class="form-control" id="recipeDescription" rows="3" placeholder="Describe your recipe"
+                    required></textarea>
+                <div class="invalid-feedback">
+                    Please provide a brief description of the recipe.
+                </div>
+            </div>
+            <div class="mb-3">
+                <label for="recipeIngredients" class="form-label">Ingredients</label>
+                <textarea class="form-control" id="recipeIngredients" rows="4" placeholder="List the ingredients"
+                    required></textarea>
+                <div class="invalid-feedback">
+                    Please provide a list of ingredients.
+                </div>
+            </div>
+            <div class="mb-3">
+                <label for="recipeSteps" class="form-label">Preparation Steps</label>
+                <textarea class="form-control" id="recipeSteps" rows="6" placeholder="Step-by-step instructions"
+                    required></textarea>
+                <div class="invalid-feedback">
+                    Please provide the preparation steps.
+                </div>
+            </div>
+            <div class="mb-3">
+                <label for="recipeImage" class="form-label">Upload Image</label>
+                <input class="form-control" type="file" id="recipeImage" accept="image/*" required />
+                <div class="invalid-feedback">
+                    Please upload an image of your recipe.
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primary">Submit Recipe</button>
+        </form>
+    </section>
+
+    <footer class="text-center mt-5">
+        <div class="container">
+            <p><b>&copy; 2024 Cookbook, Inc. All rights reserved.</p>
+            <ul class="list-unstyled d-flex justify-content-center">
+                <li class="ms-3">
+                    <a class="link-body-emphasis" href="#">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                            class="bi bi-whatsapp" viewBox="0 0 16 16">
+                            <path
+                                d="M13.601 2.326A7.85 7.85 0 0 0 7.994 0C3.627 0 .068 3.558.064 7.926c0 1.399.366 2.76 1.057 3.965L0 16l4.204-1.102a7.9 7.9 0 0 0 3.79.965h.004c4.368 0 7.926-3.558 7.93-7.93A7.9 7.9 0 0 0 13.6 2.326zM7.994 14.521a6.6 6.6 0 0 1-3.356-.92l-.24-.144-2.494.654.666-2.433-.156-.251a6.56 6.56 0 0 1-1.007-3.505c0-3.626 2.957-6.584 6.591-6.584a6.56 6.56 0 0 1 4.66 1.931 6.56 6.56 0 0 1 1.928 4.66c-.004 3.639-2.961 6.592-6.584 6.592z" />
+                        </svg>
+                    </a>
+                </li>
+                <li class="ms-3">
+                    <a class="link-body-emphasis" href="#">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                            class="bi bi-facebook" viewBox="0 0 16 16">
+                            <path
+                                d="M8.051 1.991c-3.291 0-5.96 2.67-5.96 5.961 0 2.722 1.81 5.008 4.242 5.836v-4.132H4.868V7.949h1.464V6.537c0-1.366.762-2.107 2.011-2.107.581 0 1.192.104 1.192.104v1.31H8.98c-.66 0-.865.41-.865.83v1.276h1.463l-.233 1.707h-1.23v4.102a5.93 5.93 0 0 0 3.65-5.416c0-3.291-2.67-5.961-5.96-5.961z" />
+                        </svg>
+                    </a>
+                </li>
+                <li class="ms-3">
+                    <a class="link-body-emphasis" href="#">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                            class="bi bi-instagram" viewBox="0 0 16 16">
+                            <path
+                                d="M8 3c1.9 0 2.133.008 2.88.042.747.035 1.253.152 1.545.323.35.198.602.433.865.865.17.292.288.798.323 1.545.034.747.042.98.042 2.88s-.008 2.133-.042 2.88c-.035.747-.152 1.253-.323 1.545-.198.35-.433.602-.865.865-.292.17-.798.288-1.545.323-.747.034-.98.042-2.88.042s-2.133-.008-2.88-.042c-.747-.035-1.253-.152-1.545-.323-.35-.198-.602-.433-.865-.865-.17-.292-.288-.798-.323-1.545-.034-.747-.042-.98-.042-2.88s.008-2.133.042-2.88c.035-.747.152-1.253.323-1.545.198-.35.433-.602.865-.865.292-.17.798-.288 1.545-.323C5.867 3.008 6.1 3 8 3zm0-3C6.084 0 5.787.004 4.999.042 4.22.08 3.621.182 3.092.342c-.584.18-1.08.413-1.557.889-.476.477-.71.973-.889 1.557-.16.529-.262 1.128-.3 1.907C.004 5.787 0 6.084 0 8s.004 2.213.042 3.001c.038.789.14 1.378.3 1.907.18.584.413 1.08.889 1.557.477.476.973.71 1.557.889.529.16 1.128.262 1.907.3C5.787 15.996 6.084 16 8 16s2.213-.004 3.001-.042c.789-.038 1.378-.14 1.907-.3.584-.18 1.08-.413 1.557-.889.476-.477.71-.973.889-1.557.16-.529.262-1.128.3-1.907.038-.788.042-1.084.042-3.001s-.004-2.213-.042-3.001c-.038-.789-.14-1.378-.3-1.907-.18-.584-.413-1.08-.889-1.557-.477-.476-.973-.71-1.557-.889-.529-.16-1.128-.262-1.907-.3C10.213.004 9.916 0 8 0z" />
+                            <path
+                                d="M8 4.5a3.5 3.5 0 1 0 0 7 3.5 3.5 0 0 0 0-7zm0 5.5a2 2 0 1 1 0-4 2 2 0 0 1 0 4zM12.5 3.5a1 1 0 1 0 0 2 1 1 0 0 0 0-2z" />
+                        </svg>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </footer>
+    <script>
+        const toggleBtn = document.querySelector('.toggle_btn');
+        const toggleBtnIcon = document.querySelector('.toggle_btn i');
+        const dropdownMenu = document.querySelector('.dropdown_menu');
+
+
+        toggleBtn.onclick = function () {
+            dropdownMenu.classList.toggle('open');
+            const isOpen = dropdownMenu.classList.contains('open');
+
+            toggleBtnIcon.classList = isOpen ? 'fas fa-times' : 'fas fa-bars';
+
+        }
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+        integrity="sha384-QDfobS/E5SC6rwfh3DyvEc+r9Xcc1TDqKa4PEzoGdM/J/kWxDkRye/ntb5rxjL7K"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"
+        integrity="sha384-MXVnT1luGltT3IGzH5McvS6N5jjgDF5sYhYsekr+6t8GbGA2mLBClJc3xOA9ldB4"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>

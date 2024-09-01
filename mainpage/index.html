@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Find Meal Recipes</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css"
+    integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA=="
+    crossorigin="anonymous" />
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <header>
+    <div class="navbar">
+      <div class="logo"><img src="https://i.postimg.cc/mDBsM7gV/Untitled-5-2-removebg-preview.png" alt="cookbook"></div>
+      <ul class="links">
+        <li><a href="/homepage/index.html">Home</a></li>
+        <li><a href="/mainpage/index.html">Recipes</a></li>
+        <li><a href="/contactpage/addrecipe.html">Add Recipes</a></li>
+      </ul>
+      <ul>
+        <a href="/signpage/index.html" class="action_btn">Log In</a>
+        <a href="/signpage/index.html" class="action_btn">Get Started</a>
+      </ul>
+      <div class="toggle_btn">
+        <i class="fas fa-bars"></i>
+      </div>
+    </div>
+    <div class="dropdown_menu">
+      <li><a href="/homepage/index.html">Home</a>
+      <li><a href="/mainpage/index.html">Recipes</a></li>
+      <li><a href="/contactpage/addrecipe.html">Add Recipes</a></li>
+      </li>
+      <li><a href="/signpage/index.html" class="action_btn">Log In</a></li>
+      <li><a href="/signpage/index.html" class="action_btn">Get Started</a></li>
+    </div>
+  </header>
+  <div class="container">
+    <div class="meal-wrapper">
+      <div class="meal-search">
+        <h2 class="title">Find Delicious Recipes</h2>
+
+        <div class="meal-search-box">
+          <select id="search-type" class="search-control">
+            <option value="ingredient">Ingredient</option>
+            <option value="category">Category</option>
+            <option value="name">Name</option>
+            <option value="firstLetter">First Letter</option>
+            <option value="area">Country</option>
+          </select>
+          <input type="text" class="search-control" placeholder="Search..." id="search-input">
+          <button type="submit" class="search-btn" id="search-btn">
+            <i class="fas fa-search"></i>
+          </button>
+        </div>
+      </div>
+
+      <div class="meal-result">
+        <h2 class="title" id="result-title">Featured Recipes</h2>
+        <div id="meal">
+          <!-- Meals will be dynamically added here -->
+        </div>
+      </div>
+    </div>
+  </div>
+  <script>
+    const toggleBtn = document.querySelector('.toggle_btn');
+    const toggleBtnIcon = document.querySelector('.toggle_btn i');
+    const dropdownMenu = document.querySelector('.dropdown_menu');
+
+
+    toggleBtn.onclick = function () {
+      dropdownMenu.classList.toggle('open');
+      const isOpen = dropdownMenu.classList.contains('open');
+
+      toggleBtnIcon.classList = isOpen ? 'fas fa-times' : 'fas fa-bars';
+
+    }
+  </script>
+  <script src="script.js"></script>
+</body>
+
+</html>

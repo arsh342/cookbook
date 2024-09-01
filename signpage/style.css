@@ -1,0 +1,114 @@
+body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+    background-color: #f4f4f9;
+  }
+
+  .container {
+    width: 600px;
+    padding: 20px;
+    background: #fff;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 20px;
+    text-align: center;
+  }
+
+
+  .form-title {
+    margin-bottom: 20px;
+    font-size: 24px;
+    font-weight: bold;
+  }
+
+  .input-group {
+    margin: 15px 50px;
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+    border: 2px solid #ddd;
+    border-radius: 10px;
+  }
+
+  .input-group i {
+    padding: 10px;
+    color: #555;
+    min-width: 40px;
+    text-align: center;
+  }
+
+  .input-group input {
+    border: none;
+    outline: none;
+    padding: 10px;
+    width: 100%;
+    font-size: 16px;
+    border-radius: 0 5px 5px 0;
+  }
+
+  .btn {
+    background-color: #7fa154;
+    color: #fff;
+    border: none;
+    padding: 10px;
+    border-radius: 10px;
+    cursor: pointer;
+    width: 83%;
+    margin-top: 10px;
+  }
+
+  .btn:hover {
+    background-color: #537b3f;
+  }
+
+  .icons {
+    display: flex;
+    justify-content: center;
+    margin: 15px 0;
+  }
+
+  .icons button {
+    border: none;
+    background: none;
+    font-size: 24px;
+    margin: 0 10px;
+    cursor: pointer;
+  }
+
+  .links {
+    margin-top: 15px;
+  }
+
+  .links button {
+    background: none;
+    border: none;
+    color: #7fa154;
+    cursor: pointer;
+    text-decoration: none;
+  }
+
+  .links button:hover {
+    color: #537b3f;
+  }
+
+  .or {
+    margin: 10px 0;
+    font-size: 14px;
+    color: #888;
+  }
+
+  .messageDiv {
+    margin-bottom: 10px;
+    padding: 10px;
+    border-radius: 5px;
+    color: #fff;
+    background-color: #28a745;
+  }
+
+  .recover {
+    text-align: right;
+    margin-bottom: 10px;
+  }
