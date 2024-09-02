@@ -18,6 +18,10 @@ function getMealRecipe() {
 
 // create a modal
 function mealRecipeModal(meal) {
+    // Extract the YouTube video ID from the URL
+    const videoId = meal.strYoutube.split('v=')[1];
+    const embedUrl = `https://www.youtube.com/embed/${videoId}`;
+
     let html = `
         <h2 class="recipe-title">${meal.strMeal}</h2>
         <p class="recipe-category">${meal.strCategory}</p>
@@ -26,7 +30,7 @@ function mealRecipeModal(meal) {
             <p>${meal.strInstructions}</p>
         </div>
         <div class="recipe-meal-img">
-            <img src="${meal.strMealThumb}" alt="">
+            <img src="${meal.strMealThumb}" alt="${meal.strMeal}">
         </div>
         <div class="recipe-ingredients">
             <h3>Ingredients:</h3>
@@ -34,12 +38,14 @@ function mealRecipeModal(meal) {
                 ${getIngredientsList(meal)}
             </ul>
         </div>
-        <div class="recipe-link">
-            <a href="${meal.strYoutube}" target="_blank">Watch Video</a>
+        <div class="recipe-video">
+            <h3>Recipe Video:</h3>
+            <iframe width="560" height="315" src="${embedUrl}" frameborder="0" allowfullscreen></iframe>
         </div>
     `;
     mealDetailsContent.innerHTML = html;
 }
+
 
 // helper function to get ingredients list
 function getIngredientsList(meal) {

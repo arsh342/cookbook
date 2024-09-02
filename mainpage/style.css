@@ -10,9 +10,6 @@
     --tenne-tawny: #7fa154;
     --tenne-tawny-dark: #537b3f;
 }
-img{
-    loading: lazy;
-}
 
 body {
     font-weight: 300;
@@ -21,6 +18,10 @@ body {
     font-family: 'Poppins', sans-serif;
     overflow-x: hidden;
     height: 100vh;
+    overflow: auto;
+}
+::-webkit-scrollbar {
+    width: 0px;
 }
 header li{
     list-style: none;
@@ -371,7 +372,59 @@ footer {
     color: white;
   }
 
+  .star-rating {
+    display: flex;
+    gap: 5px;
+    margin: 5px 0;
+}
+
+.star {
+    font-size: 25px;
+    cursor: pointer;
+    color: #ccc; /* Default star color */
+    transition: color 0.3s;
+}
+
+.star.selected {
+    color: #7fa154; /* Color for selected stars */
+}
+
+
 /* Media Queries */
+
+@media (max-width: 576px) {
+    .navbar {
+        padding: 0 1rem;
+    }
+
+    .navbar .logo img {
+        width: 80px; /* Reduced logo size */
+    }
+
+    .meal-search-box {
+        width: 100%; /* Full width on mobile */
+        flex-direction: column;
+    }
+
+    .search-btn {
+        height: 45px;
+        font-size: 1.5rem;
+    }
+
+    .meal-item {
+        margin: 1rem 0; /* Smaller margins for mobile */
+    }
+
+    .meal-img img {
+        height: 200px; /* Adjusted image height */
+    }
+
+    .recipe-meal-img img {
+        width: 80vw;
+        height: 30vh; /* Smaller images on mobile */
+    }
+}
+
 @media screen and (min-width: 600px) {
     .meal-search-box {
         width: 640px; /* Increased to accommodate the dropdown */
