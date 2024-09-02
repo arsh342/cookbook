@@ -392,7 +392,7 @@ footer {
 
 /* Media Queries */
 
-@media (max-width: 576px) {
+@media (max-width: 400px) {
     .navbar {
         padding: 0 1rem;
     }
@@ -433,11 +433,11 @@ footer {
     }
 }
 
-@media screen and (min-width: 768px) {
+@media screen and (min-width: 500px) {
     #meal {
         display: grid;
         grid-template-columns: repeat(2, 1fr);
-        gap: 2rem;
+        gap: 1rem;
     }
     .meal-item {
         margin: 0;
@@ -460,7 +460,7 @@ footer {
         display: block;
     }
 }
-@media(max-width: 576px){
+@media(max-width: 400px){
     .dropdown_menu{
         left: 2rem;
         width: unset;
