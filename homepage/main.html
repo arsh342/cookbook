@@ -5,7 +5,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Cookbook | Home</title>
-  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="styl.css" />
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous" />
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
@@ -21,11 +21,122 @@
       font-family: "Source Serif 4", serif;
     }
 
-    .navbar {
-      padding: 20px;
-      padding-bottom: 0px;
-      padding-top: 0px;
+    :root {
+      --tenne-tawny: #7fa154;
+      --tenne-tawny-dark: #537b3f;
     }
+
+    header li {
+      list-style: none;
+    }
+
+    header a {
+      text-decoration: none;
+      color: #000;
+      font-size: 1rem;
+    }
+
+    header a:hover {
+      color: var(--tenne-tawny);
+    }
+
+    header {
+      position: relative;
+      padding: 0 2rem;
+    }
+
+    .navbar {
+      width: 100%;
+      height: 80px;
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .navbar .logo img {
+      width: 80px;
+      top: 0;
+    }
+
+    .navbar a {
+      font-size: 15px;
+      font-weight: 600;
+    }
+
+    .navbar .links {
+      display: flex;
+      gap: 2rem;
+    }
+
+    .navbar .toggle_btn {
+      font-size: 2.5rem;
+      cursor: pointer;
+      display: none;
+    }
+
+    .navbar .menu {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .action_btn {
+      background-color: var(--tenne-tawny);
+      color: #fff;
+      padding: 0.5rem 1rem;
+      border: none;
+      outline: none;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      font-weight: bold;
+      cursor: pointer;
+      transition: scale 0.2s ease;
+    }
+
+    .action_btn:hover {
+      scale: 1.1;
+      transition: 0.2s;
+      color: #fff;
+      background-color: var(--tenne-tawny-dark);
+    }
+
+    .action_btn:active {
+      scale: 0.95;
+    }
+
+    .dropdown_menu {
+      display: none;
+      position: absolute;
+      right: 2rem;
+      top: 60px;
+      height: 0;
+      width: 300px;
+      background-color: #333;
+      backdrop-filter: blur(15px);
+      border-radius: 10px;
+      overflow: hidden;
+      transition: height 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    .dropdown_menu.open {
+      height: 270px;
+    }
+
+    .dropdown_menu li {
+      padding: 0.7rem;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .dropdown_menu .action_btn {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+    }
+
 
     .pageTop {
       margin-top: 0px;
@@ -138,7 +249,7 @@
     }
 
     footer {
-      background-color: #537b3f;
+      background-color: #7fa154;
       color: white;
     }
 
@@ -154,7 +265,7 @@
       border-radius: 20%;
     }
 
-    @media only screen and (max-width: 600px) {
+    @media only screen and (max-width: 530px) {
       .navbar {
         padding: 5px;
       }
@@ -212,124 +323,57 @@
         margin-top: 250px;
       }
     }
+
+    @media(max-width: 850px) {
+
+      .navbar .links,
+      .navbar .action_btn {
+        display: none;
+      }
+
+      .navbar .toggle_btn {
+        display: block;
+      }
+
+      .dropdown_menu {
+        display: block;
+      }
+    }
+
+    @media(max-width: 530px) {
+      .dropdown_menu {
+        left: 2rem;
+        width: unset;
+      }
+    }
   </style>
 </head>
 
 <body>
   <header>
-    <nav class="navbar navbar-expand-lg bg-body-tertiary">
-      <div class="container-fluid">
-        <a class="navbar-brand" href="index.html"><img
-            src="https://i.postimg.cc/mDBsM7gV/Untitled-5-2-removebg-preview.png" height="100px" width="100px" /></a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll"
-          aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarScroll">
-          <ul class="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 100px">
-            <li class="nav-item dropdown">
-              <a class="nav-link dropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                Recipes
-              </a>
-              <ul class="dropdown-menu">
-                <div class="dropdown" style="
-                      display: flex;
-                      width: 800px;
-                      justify-content: space-evenly;
-                    ">
-                  <div style="width: 150px; text-align: center">
-                    <li class="dropdown-item" style="font-weight: 500">
-                      Explore
-                    </li>
-                    <br />
-                    <li><a class="dropdown-item" href="#">Recipes</a></li>
-                  </div>
-                  <div style="width: 150px; text-align: center">
-                    <li class="dropdown-item" style="font-weight: 500">
-                      Popular
-                    </li>
-                    <br />
-                    <li><a class="dropdown-item" href="#">Healthy</a></li>
-                    <li><a class="dropdown-item" href="#">Veg.</a></li>
-                    <li><a class="dropdown-item" href="#">Non-Veg.</a></li>
-                    <li><a class="dropdown-item" href="#">Easy</a></li>
-                    <li><a class="dropdown-item" href="#">Fast</a></li>
-                  </div>
-                  <div style="width: 150px; text-align: center">
-                    <li class="dropdown-item" style="font-weight: 500">
-                      Recipes by Diet
-                    </li>
-                    <br />
-                    <li><a class="dropdown-item" href="#">Vegan</a></li>
-                    <li><a class="dropdown-item" href="#">Pescatatian</a></li>
-                    <li><a class="dropdown-item" href="#">Low Carb.</a></li>
-                  </div>
-                </div>
-              </ul>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="#">Add Recipes</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">Blog</a>
-            </li>
-          </ul>
-          <form class="d-flex" role="search">
-            <input class="formSearch" type="search" placeholder="   Search..." aria-label="Search" />
-          </form>
-          <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-            <button class="btn btn-light me-md-2" type="button">
-              SignIn
-            </button>
-          </div>
-        </div>
+    <div class="navbar">
+      <div class="logo"><img src="https://i.postimg.cc/mDBsM7gV/Untitled-5-2-removebg-preview.png" alt="cookbook"></div>
+      <ul class="links">
+        <li><a href="https://cookbookv2-p5kqbpq9l-arsh342s-projects.vercel.app/">Home</a></li>
+        <li><a href="https://cookbookv2-homepage.vercel.app/">Recipes</a></li>
+        <li><a href="https://cookbookv2-dv92.vercel.app/">Add Recipes</a></li>
+      </ul>
+      <ul>
+        <a href="https://cookbookv2-yve4-3zmo062sp-arsh342s-projects.vercel.app/" class="action_btn">Log In</a>
+        <a href="https://cookbookv2-yve4-3zmo062sp-arsh342s-projects.vercel.app/" class="action_btn">Get Started</a>
+      </ul>
+      <div class="toggle_btn">
+        <i class="fas fa-bars"></i>
       </div>
-    </nav>
-    <nav class="navbar navbar-dark bg-dark fixed-top">
-      <div class="container-fluid">
-        <a class="navbar-brand" href="#">Offcanvas dark navbar</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasDarkNavbar"
-          aria-controls="offcanvasDarkNavbar" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="offcanvas offcanvas-end text-bg-dark" tabindex="-1" id="offcanvasDarkNavbar"
-          aria-labelledby="offcanvasDarkNavbarLabel">
-          <div class="offcanvas-header">
-            <h5 class="offcanvas-title" id="offcanvasDarkNavbarLabel">Dark offcanvas</h5>
-            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas"
-              aria-label="Close"></button>
-          </div>
-          <div class="offcanvas-body">
-            <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
-              <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="#">Home</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#">Link</a>
-              </li>
-              <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
-                  aria-expanded="false">
-                  Dropdown
-                </a>
-                <ul class="dropdown-menu dropdown-menu-dark">
-                  <li><a class="dropdown-item" href="#">Action</a></li>
-                  <li><a class="dropdown-item" href="#">Another action</a></li>
-                  <li>
-                    <hr class="dropdown-divider">
-                  </li>
-                  <li><a class="dropdown-item" href="#">Something else here</a></li>
-                </ul>
-              </li>
-            </ul>
-            <form class="d-flex mt-3" role="search">
-              <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-              <button class="btn btn-success" type="submit">Search</button>
-            </form>
-          </div>
-        </div>
-      </div>
-    </nav>
+    </div>
+    <div class="dropdown_menu">
+      <li><a href="/homepage/index.html">Home</a>
+      <li><a href="/mainpage/index.html">Recipes</a></li>
+      <li><a href="/contactpage/addrecipe.html">Add Recipes</a></li>
+      </li>
+      <li><a href="/signpage/index.html" class="action_btn">Log In</a></li>
+      <li><a href="/signpage/index.html" class="action_btn">Get Started</a></li>
+    </div>
   </header>
   <main>
     <section class="pageTop">
@@ -406,146 +450,6 @@
             <span class="carousel-control-next-icon" aria-hidden="true"></span>
             <span class="sr--light me-md-2"></span>
           </a>
-        </div>
-      </div>
-    </section>
-    <section class="pageMiddle">
-      <div class="container mt-2">
-        <h2>Trending Right Now!</h2>
-        <a class="btn btn-outline-success" href="/mainpage/main.html">
-          <h6>
-            See all Recipes
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-              class="bi bi-arrow-right-short" viewBox="0 0 16 16">
-              <path fill-rule="evenodd"
-                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8" />
-            </svg>
-          </h6>
-        </a>
-        <hr />
-        <div id="cardsCarousel" class="carousel slide" data-bs-ride="carousel" style="height: 300px">
-          <div class="carousel-inner">
-            <div class="carousel-item active">
-              <div class="row">
-                <div class="col-md-3 mb-4">
-                  <div class="card">
-                    <img
-                      src="https://www.triedandtruerecipe.com/wp-content/uploads/2024/07/Chicken-and-Ramen-Noodle-Stir-Fry-1536x894.png"
-                      class="card-img-top" alt="Recipe 1" />
-                    <div class="card-body">
-                      <h5 class="card-title">Recipe 1</h5>
-                      <p class="card-text">
-                        Short description of the recipe.
-                      </p>
-                      <a href="#" class="btn btn-light me-md-2">View Recipe</a>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-md-3 mb-4">
-                  <div class="card">
-                    <img
-                      src="https://www.triedandtruerecipe.com/wp-content/uploads/2024/07/Dashi-Fried-Mushrooms-1536x894.png"
-                      class="card-img-top" alt="Recipe 2" />
-                    <div class="card-body">
-                      <h5 class="card-title">Recipe 2</h5>
-                      <p class="card-text">
-                        Short description of the recipe.
-                      </p>
-                      <a href="#" class="btn btn-light me-md-2">View Recipe</a>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-md-3 mb-4">
-                  <div class="card">
-                    <img
-                      src="https://www.triedandtruerecipe.com/wp-content/uploads/2024/07/Summer-Quinoa-Salad-1536x894.png"
-                      class="card-img-top" alt="Recipe 3" />
-                    <div class="card-body">
-                      <h5 class="card-title">Recipe 3</h5>
-                      <p class="card-text">
-                        Short description of the recipe.
-                      </p>
-                      <a href="#" class="btn btn-light me-md-2">View Recipe</a>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-md-3 mb-4">
-                  <div class="card">
-                    <img
-                      src="https://www.triedandtruerecipe.com/wp-content/uploads/2024/07/Easy-Tuna-Salad-Recipe-1536x894.png"
-                      class="card-img-top" alt="Recipe 4" />
-                    <div class="card-body">
-                      <h5 class="card-title">Recipe 4</h5>
-                      <p class="card-text">
-                        Short description of the recipe.
-                      </p>
-                      <a href="#" class="btn btn-light me-md-2">View Recipe</a>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="carousel-item">
-              <div class="row">
-                <div class="col-md-3 mb-4">
-                  <div class="card">
-                    <img
-                      src="https://www.triedandtruerecipe.com/wp-content/uploads/2024/07/Chicken-Tortilla-Salad-Recipe-1536x894.png"
-                      class="card-img-top" alt="Recipe 5" />
-                    <div class="card-body">
-                      <h5 class="card-title">Recipe 5</h5>
-                      <p class="card-text">
-                        Short description of the recipe.
-                      </p>
-                      <a href="#" class="btn btn-light me-md-2">View Recipe</a>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-md-3 mb-4">
-                  <div class="card">
-                    <img
-                      src="https://www.triedandtruerecipe.com/wp-content/uploads/2024/06/Easy-Cucumber-Avocado-Salad-4-Ingredients-1536x894.png"
-                      class="card-img-top" alt="Recipe 6" />
-                    <div class="card-body">
-                      <h5 class="card-title">Recipe 6</h5>
-                      <p class="card-text">
-                        Short description of the recipe.
-                      </p>
-                      <a href="#" class="btn btn-light me-md-2">View Recipe</a>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-md-3 mb-4">
-                  <div class="card">
-                    <img
-                      src="https://www.triedandtruerecipe.com/wp-content/uploads/2024/05/Zucchini-Parmesan-Pasta-1536x894.png"
-                      class="card-img-top" alt="Recipe 7" />
-                    <div class="card-body">
-                      <h5 class="card-title">Recipe 7</h5>
-                      <p class="card-text">
-                        Short description of the recipe.
-                      </p>
-                      <a href="#" class="btn btn-light me-md-2">View Recipe</a>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-md-3 mb-4">
-                  <div class="card">
-                    <img
-                      src="https://www.triedandtruerecipe.com/wp-content/uploads/2024/04/easy-ramp-pasta-recipe-1536x894.png"
-                      class="card-img-top" alt="Recipe 8" />
-                    <div class="card-body">
-                      <h5 class="card-title">Recipe 8</h5>
-                      <p class="card-text">
-                        Short description of the recipe.
-                      </p>
-                      <a href="#" class="btn btn-light me-md-2">View Recipe</a>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
         </div>
       </div>
     </section>

@@ -50,6 +50,7 @@ header{
 
 .navbar .logo img{
     width: 100px;
+    cursor: pointer;
 }
 .navbar a{
     font-size: 15px;
@@ -58,6 +59,7 @@ header{
 .navbar .links{
     display: flex;
     gap: 2rem;
+    cursor: pointer;
 }
 .navbar .toggle_btn{
     font-size: 2.5rem;
@@ -94,17 +96,17 @@ header{
     display: none;
     position: absolute;
     right: 2rem;
-    top: 60px;
+    top: 100px;
     height: 0;
     width: 300px;
-    background-color: #333;
+    background-color: #b0b0b0;
     backdrop-filter: blur(15px);
     border-radius: 10px;
     overflow: hidden;
     transition: height 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 .dropdown_menu.open{
-    height: 270px;
+    height: 320px;
 }
 .dropdown_menu li{
     padding: 0.7rem;
@@ -337,26 +339,17 @@ header{
 }
 
 .recipe-meal-img img {
-    width: 40vw;
-    height: 40vh;
+    width: 500px;
+    height: 450px;
     border-radius: 20px;
     margin: 0 auto;
     display: block;
+    object-fit: cover;
 }
 
-.recipe-link {
+.recipe-video {
     margin: 1.4rem 0;
-}
-
-.recipe-link a {
-    color: var(--tenne-tawny);
-    font-size: 1.2rem;
-    font-weight: 700;
-    transition: all 0.4s linear;
-}
-
-.recipe-link a:hover {
-    opacity: 0.8;
+    width: 100%;
 }
 
 .notFound {
@@ -370,6 +363,31 @@ header{
 footer {
     background-color: #7fa154;
     color: white;
+  }
+  .container1{
+    width:100vw;
+    padding:0 100px;
+  }
+  .formSearch {
+    border-radius: 20px;
+    border: 0px;
+    height: 40px;
+  }
+
+  .btnSearch {
+    background-color: #537b3f;
+    border-color: #7fa154;
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
+    border-top-left-radius: 0px;
+    border-bottom-left-radius: 0px;
+    border: 0px;
+  }
+
+  .btnSearch:hover {
+    background-color: #3e4f29;
+    border-color: #3e4f29;
+    border: 0px;
   }
 
   .star-rating {
@@ -392,7 +410,7 @@ footer {
 
 /* Media Queries */
 
-@media (max-width: 400px) {
+@media (max-width: 530px) {
     .navbar {
         padding: 0 1rem;
     }
@@ -403,7 +421,7 @@ footer {
 
     .meal-search-box {
         width: 100%; /* Full width on mobile */
-        flex-direction: column;
+        flex-direction: row;
     }
 
     .search-btn {
@@ -423,11 +441,15 @@ footer {
         width: 80vw;
         height: 30vh; /* Smaller images on mobile */
     }
+    iframe{
+        width: 80vw;
+        height: 30vh;
+    }
 }
 
-@media screen and (min-width: 600px) {
+@media screen and (min-width: 530px) {
     .meal-search-box {
-        width: 640px; /* Increased to accommodate the dropdown */
+        width: 630px; /* Increased to accommodate the dropdown */
         margin-left: auto;
         margin-right: auto;
     }
@@ -436,7 +458,7 @@ footer {
 @media screen and (min-width: 500px) {
     #meal {
         display: grid;
-        grid-template-columns: repeat(2, 1fr);
+        grid-template-columns: repeat(1, 1fr);
         gap: 1rem;
     }
     .meal-item {
@@ -444,12 +466,12 @@ footer {
     }
 }
 
-@media screen and (min-width: 992px) {
+@media screen and (min-width: 850px) {
     #meal {
         grid-template-columns: repeat(3, 1fr);
     }
 }
-@media(max-width: 992px){
+@media(max-width: 850px){
     .navbar .links, .navbar .action_btn{
         display: none;
     }
@@ -460,7 +482,7 @@ footer {
         display: block;
     }
 }
-@media(max-width: 400px){
+@media(max-width: 530px){
     .dropdown_menu{
         left: 2rem;
         width: unset;

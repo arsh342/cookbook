@@ -1,0 +1,239 @@
+body{
+    height: 100vh;
+    background-color: #000;
+    color: #fff;
+    background-size: cover;
+    background-position: center;
+  }
+  :root {
+    --tenne-tawny: #7fa154;
+    --tenne-tawny-dark: #537b3f;
+  }
+  li{
+    list-style: none;
+  }
+  header a{
+    text-decoration: none;
+    color: #000;
+    font-size: 1rem;
+  }
+  a:hover{
+    color: var(--tenne-tawny);
+  }
+  
+  header{
+    position: relative;
+    padding: 0 2rem;
+  }
+  .navbar{
+    width: 100%;
+    height: 60px;
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .navbar .logo img{
+    width: 100px;
+  }
+  .navbar a{
+    font-size: 15px;
+    font-weight: 600;
+  
+  }
+  .navbar .links{
+    display: flex;
+    gap: 2rem;
+  }
+  .navbar .toggle_btn{
+    font-size: 2.5rem;
+    cursor: pointer;
+    display: none;
+  }
+  .navbar .menu{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .action_btn{
+    background-color: var(--tenne-tawny);
+    color: #fff;
+    padding: 0.5rem 1rem;
+    border: none;
+    outline: none;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: scale 0.2s ease;
+  }
+  .action_btn:hover{
+    scale: 1.1;
+    transition: 0.2s;
+    color: #fff;
+  }
+  .action_btn:active{
+    scale: 0.95;
+  }
+  .dropdown_menu{
+    display: none;
+    position: absolute;
+    right: 2rem;
+    top: 100px;
+    height: 0;
+    width: 300px;
+    background-color: #b5b2b2;
+    backdrop-filter: blur(15px);
+    border-radius: 10px;
+    overflow: hidden;
+    transition: height 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  }
+  .dropdown_menu.open{
+    height: 320px;
+  }
+  .dropdown_menu li{
+    padding: 0.7rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .dropdown_menu .action_btn{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+  }
+  footer {
+    background-color: #7fa154;
+    color: white;
+  }
+  .container1{
+    width:100vw;
+    padding:0 100px;
+  }
+  .formSearch {
+    border-radius: 20px;
+    border: 0px;
+    height: 40px;
+  }
+  
+  .btnSearch {
+    background-color: #537b3f;
+    border-color: #7fa154;
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
+    border-top-left-radius: 0px;
+    border-bottom-left-radius: 0px;
+    border: 0px;
+  }
+  
+  .btnSearch:hover {
+    background-color: #3e4f29;
+    border-color: #3e4f29;
+    border: 0px;
+  }
+  @media(max-width: 850px){
+    .navbar .links, .navbar .action_btn{
+        display: none;
+    }
+    .navbar .toggle_btn{
+        display: block;
+    }
+    .dropdown_menu{
+        display: block;
+    }
+  }
+  @media(max-width: 530px){
+    .dropdown_menu{
+        left: 2rem;
+        width: unset;
+    }
+  }
+  /* Container Styling */
+.container-add-recipe {
+    max-width: 600px;
+    margin: 60px auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Title Styling */
+.form-title {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    text-align: center;
+    color: #333;
+}
+
+/* Form Group Styling */
+.form-group {
+    margin-bottom: 16px;
+}
+
+/* Label Styling */
+.form-label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 6px;
+    color: #555;
+}
+
+/* Input and Textarea Styling */
+.form-control {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+    box-sizing: border-box;
+}
+
+.form-control:focus {
+    border-color: #007bff;
+    outline: none;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.25);
+}
+
+/* Invalid Feedback Styling */
+.invalid-feedback {
+    display: none;
+    font-size: 12px;
+    color: #e74c3c;
+    margin-top: 4px;
+}
+
+/* Button Styling */
+.btn-submit {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.btn-submit:hover {
+    background-color: #0056b3;
+}
+
+/* Custom File Input Styling */
+input[type="file"] {
+    padding: 8px;
+}
+
+/* Validation Feedback Display */
+input:invalid + .invalid-feedback,
+textarea:invalid + .invalid-feedback {
+    display: block;
+}
+
+  
