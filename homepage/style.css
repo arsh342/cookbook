@@ -4,6 +4,10 @@ body{
   color: #fff;
   background-size: cover;
   background-position: center;
+  overflow: auto;
+}
+::-webkit-scrollbar {
+  width: 0px;
 }
 :root {
   --tenne-tawny: #7fa154;
