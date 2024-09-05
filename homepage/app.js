@@ -1,49 +1,62 @@
-//step 1: get DOM
-let nextDom = document.getElementById('next');
-let prevDom = document.getElementById('prev');
-
-let carouselDom = document.querySelector('.carousel');
-let SliderDom = carouselDom.querySelector('.carousel .list');
-let thumbnailBorderDom = document.querySelector('.carousel .thumbnail');
-let thumbnailItemsDom = thumbnailBorderDom.querySelectorAll('.item');
-let timeDom = document.querySelector('.carousel .time');
-
-thumbnailBorderDom.appendChild(thumbnailItemsDom[0]);
-let timeRunning = 3000;
-let timeAutoNext = 7000;
-
-nextDom.onclick = function(){
-    showSlider('next');    
+const toggleBtn = document.querySelector('.toggle_btn');
+const toggleBtnIcon = document.querySelector('.toggle_btn i');
+const dropdownMenu = document.querySelector('.dropdown_menu');
+toggleBtn.onclick = function () {
+    dropdownMenu.classList.toggle('open');
+    const isOpen = dropdownMenu.classList.contains('open');
+    toggleBtnIcon.classList = isOpen ? 'fas fa-times' : 'fas fa-bars';
 }
+let prevBtn = document.getElementById('prev');
+let nextBtn = document.getElementById('next');
+let carousel = document.querySelector('.carousel');
+let items = carousel.querySelectorAll('.list .item');
+let indicator = carousel.querySelector('.indicators');
+let dots = indicator.querySelectorAll('.indicators ul li');
 
-prevDom.onclick = function(){
-    showSlider('prev');    
+let active = 0;
+let firstPosition = 0;
+let lastPosition = items.length - 1;
+let autoPlay;
+
+const startAutoPlay = () => {
+    clearInterval(autoPlay);
+    autoPlay = setInterval(() => {
+        nextBtn.click();
+    }, 5000);
 }
-let runTimeOut;
-let runNextAuto = setTimeout(() => {
-    next.click();
-}, timeAutoNext)
-function showSlider(type){
-    let  SliderItemsDom = SliderDom.querySelectorAll('.carousel .list .item');
-    let thumbnailItemsDom = document.querySelectorAll('.carousel .thumbnail .item');
-    
-    if(type === 'next'){
-        SliderDom.appendChild(SliderItemsDom[0]);
-        thumbnailBorderDom.appendChild(thumbnailItemsDom[0]);
-        carouselDom.classList.add('next');
-    }else{
-        SliderDom.prepend(SliderItemsDom[SliderItemsDom.length - 1]);
-        thumbnailBorderDom.prepend(thumbnailItemsDom[thumbnailItemsDom.length - 1]);
-        carouselDom.classList.add('prev');
+startAutoPlay();
+
+const setSlider = () => {
+    let itemActiveOld = carousel.querySelector('.list .item.active');
+    if (itemActiveOld) itemActiveOld.classList.remove('active');
+    items[active].classList.add('active');
+
+    let dotActiveOld = indicator.querySelector('.indicators ul li.active');
+    if (dotActiveOld) dotActiveOld.classList.remove('active');
+    dots[active].classList.add('active');
+
+    indicator.querySelector('.number').innerText = '0' + (active + 1);
+    startAutoPlay();
+}
+setSlider();
+
+nextBtn.onclick = () => {
+    active = active + 1 > lastPosition ? 0 : active + 1;
+    carousel.style.setProperty('--calculation', 1);
+    setSlider();
+}
+prev.onclick = () => {
+    active = active - 1 < firstPosition ? lastPosition : active - 1;
+    carousel.style.setProperty('--calculation', -1);
+    setSlider();
+    clearInterval(autoPlay);
+    autoPlay = setInterval(() => {
+        nextBtn.click();
+    }, 5000);
+}
+dots.forEach((item, position) => {
+    item.onclick = () => {
+        active = position;
+        setSlider();
     }
-    clearTimeout(runTimeOut);
-    runTimeOut = setTimeout(() => {
-        carouselDom.classList.remove('next');
-        carouselDom.classList.remove('prev');
-    }, timeRunning);
-
-    clearTimeout(runNextAuto);
-    runNextAuto = setTimeout(() => {
-        next.click();
-    }, timeAutoNext)
-}
+})
