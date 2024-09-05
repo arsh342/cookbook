@@ -145,6 +145,8 @@ footer {
   }
   .navbar .toggle_btn{
       display: block;
+      font-size: 60px;
+      color: #fff;
   }
   .dropdown_menu{
       display: block;

@@ -180,8 +180,8 @@ body {
     border-radius: 50%;
     border: 1px solid transparent;
     background-color: #7fa154;
-    color: #0b0b1b;
-    font-size: large;
+    color: #fff;
+    font-size: 30px;
     cursor: pointer;
     pointer-events: auto;
     transition: 0.5s;
@@ -190,6 +190,7 @@ body {
 .carousel .arrows button:hover {
     border: 1px solid #7fa154;
     color: #fff;
+    transform: scale(1.1);
 }
 
 .carousel .indicators {
@@ -294,6 +295,11 @@ body {
 
     .carousel .list .item .content h2 {
         font-size: 5em;
+    }
+    .carousel .indicators .number {
+        font-size: 10em;
+        transform: translateX(50px);
+        opacity: 0.5;
     }
 }
 
