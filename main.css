@@ -157,15 +157,15 @@ body{
             width: 50px;
             height: 50px;
             border-radius: 50%;
-            border: 1px solid #6e8b4855;
+            border: 1px solid #7fa154;
             background-color: #7fa154;
-            color: #fff7;
+            color: #fff;
             font-size: large;
             cursor: pointer;
             pointer-events: auto;
             transition: 0.5s;
             &:hover{
-                border: 1px solid #6e8b48;
+                border: 1px solid #7fa154;
                 color: #fff;
             }
         }
