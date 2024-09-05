@@ -31,7 +31,7 @@ a:hover{
 header{
   position: relative;
   padding: 0 2rem;
-  z-index: 1;
+  z-index: 111111;
   width: 100%;
 }
 .navbar{
@@ -93,11 +93,12 @@ header{
   top: 100px;
   height: 0;
   width: 300px;
-  background-color: #b5b2b2;
-  backdrop-filter: blur(15px);
+  background: rgba(137, 137, 137, 0.8);
+  backdrop-filter: saturate(180%) blur(10px);
   border-radius: 10px;
   overflow: hidden;
   transition: height 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+
 }
 .dropdown_menu.open{
   height: 320px;
@@ -147,13 +148,14 @@ footer {
   }
   .dropdown_menu{
       display: block;
-      z-index: 11;
+      color: #fff;
   }
 }
 @media(max-width: 530px){
   .dropdown_menu{
       left: 2rem;
       width: unset;
+      color: #fff;
   }
 }
 @import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap");
@@ -340,24 +342,20 @@ section .heading-container1 {
 
 /* Hidden elements */
 
-.menu-icon,
-.mobile-menu-items,
-.mobile-icons-container1 {
-  display: none;
-}
-
 @media (max-width: 1100px) {
-  h1 {
+  .container1 h1 {
     font-size: 48px;
   }
-
+  .container1 p {
+    color: #000;
+  }
   .section-hero .right img {
     width: 280px;
   }
 }
 
-@media (max-width: 800px) {
-  .mobile-menu-items {
+ @media (max-width: 800px) {
+ /*.mobile-menu-items {
     display: flex;
     height: 100vh;
     width: 100%;
@@ -395,31 +393,11 @@ section .heading-container1 {
     padding: 2px;
   }
 
-  h1 {
-    font-size: 36px;
-    line-height: 120%;
-  }
 
-  .container1 {
-    max-width: 700px;
-  }
-
-  h2 {
-    font-size: 28px;
-    line-height: 130%;
-  }
-
-  h3 {
-    font-size: 20px;
-  }
-
-  nav .menu-items {
-    display: none;
-  }
 
   /* Header */
 
-  .section-hero .right {
+  /* .section-hero .right {
     position: relative;
     display: flex;
     justify-content: center;
@@ -441,9 +419,30 @@ section .heading-container1 {
 
   .section-hero .left {
     max-width: 100%;
-  }
+  } */
 
   /* Featured */
+  .container h1 {
+    font-size: 36px;
+    line-height: 120%;
+  }
+
+  .container1 {
+    max-width: 700px;
+  }
+
+  .container1 h2 {
+    font-size: 28px;
+    line-height: 130%;
+  }
+
+  .container1 h3 {
+    font-size: 20px;
+    color: var(--dark-color);
+  }
+  /* .container1 p {
+    color: #000;
+  } */
 
   .featured .logos {
     gap: 36px;
@@ -457,17 +456,9 @@ section .heading-container1 {
 
   #about .container1 {
     flex-direction: column;
+    color: var(--dark-color);
   }
 
-  .features-container1 {
-    flex-direction: column;
-  }
-
-  /* Why Choose Us Section */
-
-  #why .container1 {
-    flex-direction: column;
-  }
 }
 
 /* Blog List page */
@@ -480,6 +471,7 @@ section .heading-container1 {
   padding-bottom: 60px;
   display: flex;
   gap: 40px;
+  color: #000;
 }
 
 .post-container1 h2 {
@@ -707,9 +699,9 @@ aside .download-btn {
 
 /* Search box */
 
-.search-icon svg {
+/* .search-icon svg {
   width: 24px;
-}
+} */
 
 .search-icon {
   cursor: pointer;
@@ -802,9 +794,9 @@ aside .download-btn {
   }
 }
 
-@media (max-width: 800px) {
+/* @media (max-width: 800px) {
   .mobile-icons-container1 {
     display: flex;
     gap: 24px;
   }
-}
+} */

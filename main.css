@@ -1,311 +1,330 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=League+Gothic&display=swap');
-:root{
+
+:root {
     --w-column: 200px;
 }
-body{
+
+body {
     margin: 0;
     background-color: white;
     color: #fff;
     font-size: 15px;
-    font-family: Poppins;
-    & *{
-        box-sizing: border-box;
-        margin: 0;
-        padding: 0;
-        list-style: none;
-    }
-    & .carousel{
-        background-image: radial-gradient(
-            #7fa154, #537b3f
-        );
-        height: 100vh;
-        overflow: hidden;
-        position: relative;
-        & .list{
-            width: min(1200px, 90vw);
-            margin: auto;
-            height: 100%;
-            position: relative;
-            & .item{
-                position: absolute;
-                inset: 0;
-                & figure{
-                    position: absolute;
-                    width: 70%;
-                    top: 50%;
-                    transform: translateY(-50%);
-                    & img{
-                        width: 100%;
-                        transform: rotate(-60deg);
-                    }
-                    &::before{
-                        content: '';
-                        position: absolute;
-                        background-color: #0b0b1b;
-                        width: 100%;
-                        height: 100px;
-                        top: 150%;
-                        left: 50px;
-                        border-radius: 50%;
-                        filter: blur(50px);
-                    }
-                }
-                
-                & .content{
-                    position: absolute;
-                    z-index: 20;
-                    width: 70%;
-                    height: 100%;
-                    right: var(--w-column);
-                    display: flex;
-                    flex-direction: column;
-                    justify-content: center;
-                    align-items: end;
-                    gap: 20px;
-                    & .category{
-                        font-family: 'League Gothic';
-                        font-size: 2em;
-                        font-weight: 500;
-                        color: #fff;
-                    }
-                    & h2{
-                        font-family: 'League Gothic';
-                        font-size: 11em;
-                        line-height: 1em;
-                        text-align: right;
-                        color: #fff;
-                    }
-                    & .description{
-                        align-items: center;
-                        color: #fff8;
-                        max-width: 400px;
-                        font-size: small;
-                        text-align: right;
-                        & i{
-                            height: 50px;
-                            color: #fff;
-                            font-size: 2em;
-                            border: 1px solid #7fa154;
-                            border-radius: 50%;
-                            display: flex;
-                            justify-content: center;
-                            align-items: center;
-                        }
-                    }
-                }
-                & .more{
-                    display: grid;
-                    grid-template-columns: repeat(2, 120px);
-                    gap: 20px;
-                    grid-template-rows: 35px;
-                    & button{
-                        border-radius: 30px;
-                        font-family: 'League Gothic';
-                        text-transform: uppercase;
-                        color: #fff;
-                        background-color: transparent;
-                        border: none;
-                        position: relative;
-                        cursor: pointer;
-                        &:nth-child(1){
-                            background-image: linear-gradient(
-                                to right, #81baa0, #46a39c
-                            );
-                        }
-                        &:nth-child(2){
-                            border: 2px solid transparent;
-                            background: linear-gradient(#242745, #242745) padding-box,
-                            linear-gradient(to right, #81baa0, #46a39c) border-box;
-                            & i{
-                                margin-right: 10px;
-                            }
-                        }
-                    }
-                }
-            }
-            &::after{
-                content: '';
-                position: absolute;
-                right: var(--w-column);
-                width: var(--w-column);
-                height: 100%;
-                pointer-events: none;
-            }
-            &::before{
-                content: '';
-                position: absolute;
-                z-index: 10;
-                height: var(--w-column);
-                width: 100%;
-                top: 52%;
-                pointer-events: none;
-            }
-        }
-    & .arrows{
-        width: min(1200px, 90vw);
-        display: flex;
-        justify-content: space-between;
-        position: absolute;
-        top: 52%;
-        left: 50%;
-        transform: translate(-50%, -25px);
-        pointer-events: none;
-        z-index: 100;
-        & button{
-            top: 60%;
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            border: 1px solid #7fa154;
-            background-color: #7fa154;
-            color: #fff;
-            font-size: large;
-            cursor: pointer;
-            pointer-events: auto;
-            transition: 0.5s;
-            &:hover{
-                border: 1px solid #7fa154;
-                color: #fff;
-            }
-        }
-    }
-    & .indicators{
-        position: absolute;
-        top: 52%;
-        height: var(--w-column);
-        width: min(1200px, 90vw);
-        left: 50%;
-        transform: translateX(-50%);
-        display: flex;
-        flex-direction: column;
-        pointer-events: none;
-        justify-content: end;
-        gap: 10px;
-        & .number{
-            font-family: 'League Gothic';
-            font-size: 7vw;
-            color: #fff;
-        }
-        & ul{
-            display: flex;
-            gap: 10px;
-            & li{
-                width: 50px;
-                height: 5px;
-                background-color: #7fa154;
-                border-radius: 10px;
-                pointer-events: auto;
-                cursor: pointer;
-                transition: 0.5s;
-                &.active{
-                    background-color: #fff;
-                }
-            }
-            }
-        }
-    }
+    font-family: 'Poppins', sans-serif;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.carousel {
+    background-image: radial-gradient(#7fa154, #537b3f);
+    height: 100vh;
+    overflow: hidden;
+    position: relative;
+}
+
+.carousel .list {
+    width: min(1200px, 90vw);
+    margin: auto;
+    height: 100%;
+    position: relative;
+}
+
+.carousel .list .item {
+    position: absolute;
+    inset: 0;
+}
+
+.carousel .list .item figure {
+    position: absolute;
+    width: 70%;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.carousel .list .item figure img {
+    width: 100%;
+    transform: rotate(-60deg);
+}
+
+.carousel .list .item figure::before {
+    content: '';
+    position: absolute;
+    background-color: #0b0b1b;
+    width: 100%;
+    height: 100px;
+    top: 150%;
+    left: 50px;
+    border-radius: 50%;
+    filter: blur(50px);
+}
+
+.carousel .list .item .content {
+    position: absolute;
+    z-index: 20;
+    width: 70%;
+    height: 100%;
+    right: var(--w-column);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: end;
+    gap: 20px;
+}
+
+.carousel .list .item .content .category {
+    font-family: 'League Gothic', sans-serif;
+    font-size: 2em;
+    font-weight: 500;
+    color: #fff;
+}
+
+.carousel .list .item .content h2 {
+    font-family: 'League Gothic', sans-serif;
+    font-size: 11em;
+    line-height: 1em;
+    text-align: right;
+    color: #fff;
+}
+
+.carousel .list .item .content .description {
+    align-items: center;
+    color: #fff8;
+    max-width: 400px;
+    font-size: small;
+    text-align: right;
+}
+
+.carousel .list .item .content .description i {
+    height: 50px;
+    color: #fff;
+    font-size: 2em;
+    border: 1px solid #7fa154;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.carousel .list .item .more {
+    display: grid;
+    grid-template-columns: repeat(2, 120px);
+    gap: 20px;
+    grid-template-rows: 35px;
+}
+
+.carousel .list .item .more button {
+    border-radius: 30px;
+    font-family: 'League Gothic', sans-serif;
+    text-transform: uppercase;
+    color: #fff;
+    background-color: transparent;
+    border: none;
+    position: relative;
+    cursor: pointer;
+}
+
+.carousel .list .item .more button:nth-child(1) {
+    background-image: linear-gradient(to right, #81baa0, #46a39c);
+}
+
+.carousel .list .item .more button:nth-child(2) {
+    border: 2px solid transparent;
+    background: linear-gradient(#242745, #242745) padding-box,
+                linear-gradient(to right, #81baa0, #46a39c) border-box;
+}
+
+.carousel .list .item .more button i {
+    margin-right: 10px;
+}
+
+.carousel .list::after {
+    content: '';
+    position: absolute;
+    right: var(--w-column);
+    width: var(--w-column);
+    height: 100%;
+    pointer-events: none;
+}
+
+.carousel .list::before {
+    content: '';
+    position: absolute;
+    z-index: 10;
+    height: var(--w-column);
+    width: 100%;
+    top: 52%;
+    pointer-events: none;
+}
+
+.carousel .arrows {
+    width: min(1200px, 90vw);
+    display: flex;
+    justify-content: space-between;
+    position: absolute;
+    top: 52%;
+    left: 50%;
+    transform: translate(-50%, -25px);
+    pointer-events: none;
+    z-index: 100;
+}
+
+.carousel .arrows button {
+    top: 60%;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    border: 1px solid transparent;
+    background-color: #7fa154;
+    color: #0b0b1b;
+    font-size: large;
+    cursor: pointer;
+    pointer-events: auto;
+    transition: 0.5s;
+}
+
+.carousel .arrows button:hover {
+    border: 1px solid #7fa154;
+    color: #fff;
+}
+
+.carousel .indicators {
+    position: absolute;
+    top: 52%;
+    height: var(--w-column);
+    width: min(1200px, 90vw);
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    pointer-events: none;
+    justify-content: end;
+    gap: 10px;
+}
+
+.carousel .indicators .number {
+    font-family: 'League Gothic', sans-serif;
+    font-size: 7vw;
+    color: #fff;
+}
+
+.carousel .indicators ul {
+    display: flex;
+    gap: 10px;
+}
+
+.carousel .indicators ul li {
+    width: 50px;
+    height: 5px;
+    background-color: #7fa154;
+    border-radius: 10px;
+    pointer-events: auto;
+    cursor: pointer;
+    transition: 0.5s;
+}
+
+.carousel .indicators ul li.active {
+    background-color: #fff;
 }
 
 /* animation */
-body{
-    .carousel{
-        --calculation: 1; /* 1 or -1 */
-        & .list{
-            & .item{
-                transform: translateX(calc(100vw * var(--calculation)));
-                transition:  0.5s;
-                opacity: 0;
-                & figure{
-                    & img{
-                        transform: rotate(0deg);
-                        transition: transform 0.5s;
-                        transition-delay: 0.3s;
-                    }
-                }
-                & .content{
-                    & .category, h2, .description, .more{
-                        transform: translateX(calc(200px * var(--calculation)));
-                        transition:  0.7s;
-                        opacity: 0;
-                        transition-delay: 0.3s;
-                    }
-                    & h2{ transition-delay: 0.5s; }
-                    & .description{ transition-delay: 0.7s; }
-                    & .more{ transition-delay: 0.9s; }
-                }
-                &.active{
-                    opacity: 1;
-                    transform: translateX(0);
-                    & figure{
-                        & img{
-                            transform: rotate(-20deg);
-                        }
-                    }
-                    & .content{
-                        & .category, h2, .description, .more{
-                            transform: translateX(0px);
-                            opacity: 1;
-                        }
-                    }
-                }
-                &.activeOld{
-                    transform: translateX(calc(-100vw * var(--calculation)));
-                }
-            }
-        }
-    }
+.carousel .list .item {
+    transform: translateX(calc(100vw * var(--calculation)));
+    transition: 0.5s;
+    opacity: 0;
 }
-@media screen and (max-width: 1023px) and (min-width: 768px){
-    :root{
+
+.carousel .list .item.active {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+.carousel .list .item.activeOld {
+    transform: translateX(calc(-100vw * var(--calculation)));
+}
+
+.carousel .list .item figure img {
+    transform: rotate(0deg);
+    transition: transform 0.5s;
+    transition-delay: 0.3s;
+}
+
+.carousel .list .item .content .category,
+.carousel .list .item .content h2,
+.carousel .list .item .content .description,
+.carousel .list .item .content .more {
+    transform: translateX(calc(200px * var(--calculation)));
+    transition: 0.7s;
+    opacity: 0;
+    transition-delay: 0.3s;
+}
+
+.carousel .list .item .content h2 {
+    transition-delay: 0.5s;
+}
+
+.carousel .list .item .content .description {
+    transition-delay: 0.7s;
+}
+
+.carousel .list .item .content .more {
+    transition-delay: 0.9s;
+}
+
+.carousel .list .item.active .content .category,
+.carousel .list .item.active .content h2,
+.carousel .list .item.active .content .description,
+.carousel .list .item.active .content .more {
+    transform: translateX(0px);
+    opacity: 1;
+}
+
+@media screen and (max-width: 1023px) and (min-width: 768px) {
+    :root {
         --w-column: 100px;
     }
-    body{
-        & .carousel{
-            height: 60vh;
-            & .list{
-                & .item{
-                    & .content{
-                        & h2{
-                            font-size: 5em;
-                        }
-                    }
-                }
-            }
-        }
+
+    .carousel {
+        height: 60vh;
+    }
+
+    .carousel .list .item .content h2 {
+        font-size: 5em;
     }
 }
-@media screen and (max-width: 767px){
-    :root{
+
+@media screen and (max-width: 767px) {
+    :root {
         --w-column: 50px;
     }
-    body{
-        & .carousel{
-            height: 100vh;
-            & .list{
-                & .item{
-                    & .content{
-                        justify-content: end;
-                        padding-bottom: 100px;
-                        & h2{
-                            font-size: 5em;
-                        }
-                    }
-                    & figure{
-                        width: 110%;
-                        transform: translateY(0);
-                        top: 200px;
-                        left: -30px;
-                    }
-                }
-            }
-            & .indicators{
-                & .number{
-                    font-size: 10em;
-                    transform: translateX(50px);
-                    opacity: 0.5;
-                }
-            }
-        }
+
+    .carousel {
+        height: 100vh;
+    }
+
+    .carousel .list .item .content {
+        justify-content: end;
+        padding-bottom: 100px;
+    }
+
+    .carousel .list .item .content h2 {
+        font-size: 5em;
+    }
+
+    .carousel .list .item figure {
+        width: 110%;
+        transform: translateY(0);
+        top: 200px;
+        left: -30px;
+    }
+
+    .carousel .indicators .number {
+        font-size: 10em;
+        transform: translateX(50px);
+        opacity: 0.5;
     }
 }
