@@ -29,7 +29,7 @@ document.getElementById('google-Login-btn').addEventListener('click', () => {
             const user = result.user;
             localStorage.setItem('loggedInUserId', user.uid);
             console.log(user);
-            window.location.href = '/index.html';
+            window.location.href = 'index.html';
         })
         .catch((error) => {
             console.error('Error during Google sign-in:', error);
@@ -43,7 +43,7 @@ document.getElementById('twitter-Login-btn').addEventListener('click', () => {
             const user = result.user;
             localStorage.setItem('loggedInUserId', user.uid);
             console.log(user);
-            window.location.href = '/index.html';
+            window.location.href = 'index.html';
         })
         .catch((error) => {
             console.error('Error during Twitter sign-in:', error);
@@ -87,7 +87,7 @@ document.getElementById('submitSignIn').addEventListener('click', (event) => {
             const user = userCredential.user;
             localStorage.setItem('loggedInUserId', user.uid);
             console.log('User signed in successfully:', user);
-            window.location.href = '/index.html';
+            window.location.href = 'index.html';
         })
         .catch((error) => {
             console.error('Error during sign-in:', error);
