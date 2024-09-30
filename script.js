@@ -13,8 +13,16 @@ function debounce(func, delay) {
     };
 }
 
-// Event listener with debounce
+// Event listener with debounce for click
 searchBtn.addEventListener('click', debounce(performSearch, 300));
+
+// Event listener for Enter key press
+searchInput.addEventListener('keypress', function (event) {
+    if (event.key === 'Enter') {
+        event.preventDefault(); // Prevent form submission if within a form
+        debounce(performSearch, 300)();
+    }
+});
 
 // Get initial meals with unique fetch requests to avoid cache issues
 function getInitialMeals() {
@@ -46,7 +54,6 @@ function getInitialMeals() {
         .catch(error => console.error('Error fetching meals:', error));
 }
 
-
 // Perform search based on selected type
 function performSearch() {
     const searchType = searchTypeSelect.value;
@@ -57,6 +64,9 @@ function performSearch() {
     switch (searchType) {
         case 'ingredient':
             searchMealsByIngredient(searchTerm);
+            break;
+        case 'multiIngredient':
+            searchMealsByMultiIngredient(searchTerm);
             break;
         case 'category':
             searchMealsByCategory(searchTerm);
@@ -81,6 +91,26 @@ function searchMealsByIngredient(ingredient) {
             displayMeals(data.meals, `Recipes with ${ingredient}`);
         })
         .catch(error => console.error('Error fetching ingredient meals:', error));
+}
+
+// Search meals by multi-ingredient
+function searchMealsByMultiIngredient(ingredients) {
+    const ingredientList = ingredients.split(',').map(i => i.trim());
+    const promises = ingredientList.map(ingredient =>
+        fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?i=${ingredient}`)
+            .then(response => response.json())
+            .then(data => data.meals || [])
+    );
+
+    Promise.all(promises)
+        .then(results => {
+            // Find meals that contain all ingredients
+            const commonMeals = results.reduce((acc, meals) =>
+                acc.filter(accMeal => meals.some(meal => meal.idMeal === accMeal.idMeal))
+            );
+            displayMeals(commonMeals, `Recipes with ${ingredientList.join(', ')}`);
+        })
+        .catch(error => console.error('Error fetching multi-ingredient meals:', error));
 }
 
 // Search meals by category
@@ -167,6 +197,7 @@ function displayMeals(meals, title) {
     // Add event listeners for the star ratings
     addStarRatingListeners();
 }
+
 // Function to generate star rating HTML based on a given rating value
 function generateStarRating(rating) {
     let starsHtml = '';
@@ -174,6 +205,34 @@ function generateStarRating(rating) {
         starsHtml += `<span class="star ${i <= rating ? 'selected' : ''}" data-value="${i}">&#9733;</span>`;
     }
     return starsHtml;
+}
+
+// Function to add event listeners for star ratings
+function addStarRatingListeners() {
+    const starContainers = document.querySelectorAll('.star-rating');
+    starContainers.forEach(container => {
+        const stars = container.querySelectorAll('.star');
+        stars.forEach(star => {
+            star.addEventListener('click', () => {
+                const value = star.getAttribute('data-value');
+                updateStarRating(container, value);
+                // Here you would typically send this rating to your backend
+                console.log(`Rated ${value} stars`);
+            });
+        });
+    });
+}
+
+// Function to update star rating visually
+function updateStarRating(container, rating) {
+    const stars = container.querySelectorAll('.star');
+    stars.forEach((star, index) => {
+        if (index < rating) {
+            star.classList.add('selected');
+        } else {
+            star.classList.remove('selected');
+        }
+    });
 }
 
 // Call getInitialMeals when the page loads
@@ -191,4 +250,3 @@ window.addEventListener('pageshow', (event) => {
         getInitialMeals(); // Fetch new meals to ensure different recipes
     }
 });
-
