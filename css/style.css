@@ -29,7 +29,7 @@ a:hover{
 }
 
 header{
-  position: absolute;
+  position: relative;
   padding: 0 2rem;
   z-index: 111111;
   width: 100%;
