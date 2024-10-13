@@ -3,7 +3,7 @@ const mealList = document.getElementById('meal');
 const resultTitle = document.getElementById('result-title');
 const searchTypeSelect = document.getElementById('search-type');
 const searchInput = document.getElementById('search-input');
-
+let wishlist = JSON.parse(localStorage.getItem('wishlist')) || [];
 // Debounce function to limit search request frequency
 function debounce(func, delay) {
     let timer;
@@ -166,7 +166,8 @@ function displayMeals(meals, title) {
         meals.forEach(meal => {
             let description = meal.strInstructions ? meal.strInstructions.substring(0, 50) + '...' : 'No description available.';
             let category = meal.strCategory ? meal.strCategory : 'Unknown Category';
-            let rating = meal.rating || Math.floor(Math.random() * 5) + 1; // Use meal.rating if available, otherwise generate a random rating between 1-5
+            let rating = meal.rating || Math.floor(Math.random() * 5) + 1;
+            let isInWishlist = wishlist.includes(meal.idMeal);
 
             html += `
             <div class="meal-item" data-id="${meal.idMeal}">
@@ -177,11 +178,15 @@ function displayMeals(meals, title) {
                     <h3>${meal.strMeal}</h3>
                     <p class="meal-category"><strong>Category:</strong> ${category}</p>
                     <p class="meal-description">${description}</p>
-                    <!-- Star Rating -->
                     <div class="star-rating">
                         ${generateStarRating(rating)}
                     </div>
-                    <a href="meal-details.html?id=${meal.idMeal}" class="recipe-btn">View Recipe</a>
+                    <div class="meal-actions">
+                        <a href="meal-details.html?id=${meal.idMeal}" class="recipe-btn">View Recipe</a>
+                        <button class="wishlist-btn" onclick="toggleWishlist('${meal.idMeal}')">
+                            <i class="fas fa-heart ${isInWishlist ? 'wishlist-active' : ''}"></i>
+                        </button>
+                    </div>
                 </div>
             </div>
             `;
@@ -193,10 +198,39 @@ function displayMeals(meals, title) {
     }
 
     mealList.innerHTML = html;
-
-    // Add event listeners for the star ratings
     addStarRatingListeners();
 }
+function toggleWishlist(mealId) {
+    const index = wishlist.indexOf(mealId);
+    let message = '';
+    if (index > -1) {
+        wishlist.splice(index, 1);
+        message = 'Recipe removed from wishlist';
+    } else {
+        wishlist.push(mealId);
+        message = 'Recipe added to wishlist';
+    }
+    localStorage.setItem('wishlist', JSON.stringify(wishlist));
+    const heartIcon = document.querySelector(`.meal-item[data-id="${mealId}"] .wishlist-btn i`);
+    heartIcon.classList.toggle('wishlist-active');
+    showWishlistMessage(message);
+}
+
+function showWishlistMessage(message) {
+    const messageElement = document.createElement('div');
+    messageElement.className = 'wishlist-message';
+    messageElement.textContent = message;
+    document.body.appendChild(messageElement);
+
+    // Remove the message after 3 seconds
+    setTimeout(() => {
+        messageElement.classList.add('wishlist-message-hide');
+        setTimeout(() => {
+            document.body.removeChild(messageElement);
+        }, 300); // Wait for the fade-out animation to complete
+    }, 3000);
+}
+
 
 // Function to generate star rating HTML based on a given rating value
 function generateStarRating(rating) {
@@ -234,7 +268,6 @@ function updateStarRating(container, rating) {
         }
     });
 }
-
 // Call getInitialMeals when the page loads
 document.addEventListener('DOMContentLoaded', () => {
     console.log('Page loaded');
