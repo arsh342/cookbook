@@ -21,7 +21,7 @@ To get a local copy up and running, follow these simple steps:
 
 2. Navigate to the project directory:
    ```
-   cd cookbookv2
+   cd cookbook
    ```
 
 3. Open the `index.html` file in your web browser.
@@ -70,7 +70,7 @@ Distributed under the MIT License. See `LICENSE` for more information.
 
 ## Contact
 
-Project Link: [https://github.com/arsh342/cookbookv2](https://github.com/arsh342/cookbookv2)
+Project Link: [https://github.com/arsh342/cookbook](https://github.com/arsh342/cookbook)
 
 ## Acknowledgements
 
