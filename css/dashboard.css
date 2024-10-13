@@ -21,15 +21,16 @@
     margin-right: 5px;
 }
 .profile-text {
-    display: none;
+    visibility: hidden;
 }
 .dashboard {
     position: fixed;
-    top: 60px;
+    top: 0px;
     right: 0;
     width: 100%;
+    padding-top: 80px;
     max-width: 400px;
-    height: calc(100vh - 60px);
+    height: 100vh;
     background: rgba(255, 255, 255, 0.2);
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
