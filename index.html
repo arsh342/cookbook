@@ -36,7 +36,7 @@
                 </button>
             </div>
             <div class="toggle_btn">
-              <i class="fas fa-bars"></i>
+              = 
             </div>
         </div>
         <div class="dropdown_menu">
@@ -52,7 +52,7 @@
     <div id="dashboard" class="dashboard" style="display: none;">
         <div class="dashboard-content">
             <div class="user-info">
-                <img id="dashboardUserAvatar" src="/placeholder.svg?height=100&width=100" alt="User Avatar" class="user-avatar">
+                <!-- <img id="dashboardUserAvatar" src="/placeholder.svg?height=100&width=100" alt="User Avatar" class="user-avatar"> -->
                 <div class="user-details">
                     <h2 id="dashboardUserName">John Doe</h2>
                     <p id="dashboardUserEmail">johndoe@example.com</p>
@@ -62,44 +62,26 @@
             </div>
             <div class="recipe-stats">
                 <div class="stat-box">
-                    <i class="fas fa-heart"></i>
+                  <img src="https://i.postimg.cc/59Sw-VK1r/heart.png" alt="Wishlist">
                     <h3>Wishlist Recipes</h3>
                     <p id="wishlistCount">0 recipes</p>
                 </div>
                 <div class="stat-box">
-                    <i class="fas fa-star"></i>
+                  <img src="https://i.postimg.cc/6qcRfqYK/star.png" alt="Favourites">
                     <h3>Favorite Recipes</h3>
                     <p id="favoriteCount">0 recipes</p>
                 </div>
                 <div class="stat-box">
-                    <i class="fas fa-utensils"></i>
+                    <img src="https://i.postimg.cc/6qtnZnVz/restaurant-cutlery.png" alt="Shared">
                     <h3>Shared Recipes</h3>
                     <p id="sharedCount">0 recipes</p>
                 </div>
             </div>
-            <div class="recipe-lists">
-                <div class="recipe-list">
-                    <h3>Favorite Recipes</h3>
-                    <ul id="favoriteRecipes"></ul>
-                </div>
-                <div class="recipe-list">
-                    <h3>Wishlist Recipes</h3>
-                    <ul id="wishlistRecipes"></ul>
-                </div>
-                <div class="recipe-list">
-                    <h3>Shared Recipes</h3>
-                    <ul id="sharedRecipes"></ul>
-                </div>
+            <div class="recipe-list-buttons">
+                <button class="recipe-list">Wishlist</button>
+                <button class="recipe-list">Favourites</button>
+                <button class="recipes-list">Shared</button>
             </div>
-        </div>
-    </div>
-
-    <div id="recipeModal" class="modal">
-        <div class="modal-content">
-            <span class="close">&times;</span>
-            <h2 id="recipeTitle"></h2>
-            <img id="recipeImage" src="" alt="Recipe Image">
-            <p id="recipeInstructions"></p>
         </div>
     </div>
   <section class="carousel">
