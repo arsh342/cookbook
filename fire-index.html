@@ -11,12 +11,15 @@
 <body>
     <div class="container">
         <div class="auth-card">
+            <div class="logo">
+                <img src="https://i.postimg.cc/mDBsM7gV/Untitled-5-2-removebg-preview.png" alt="Cookbook Logo">
+            </div>
             <div class="tabs">
                 <button id="signInButton" class="tab-btn active" data-tab="signin">Sign In</button>
                 <button id="signUpButton" class="tab-btn" data-tab="signup">Sign Up</button>
             </div>
             <div id="signin" class="tab-content active">
-                <h2>Sign In</h2>
+                <h2>Welcome Back</h2>
                 <form id="signinForm">
                     <div class="input-group">
                         <i class="fas fa-envelope"></i>
@@ -27,12 +30,12 @@
                         <input type="password" id="signinPassword" placeholder="Password" required>
                         <i class="fas fa-eye toggle-password"></i>
                     </div>
-                    <button type="submit" class="btn">Sign In</button>
+                    <button type="submit" class="btn btn-primary">Sign In</button>
                 </form>
                 <p class="forgot-password"><a href="#" id="forgotPassword">Forgot Password?</a></p>
             </div>
             <div id="signup" class="tab-content">
-                <h2>Sign Up</h2>
+                <h2>Create Account</h2>
                 <form id="signupForm">
                     <div class="input-group">
                         <i class="fas fa-user"></i>
@@ -51,15 +54,15 @@
                         <input type="password" id="signupPassword" placeholder="Password" required>
                         <i class="fas fa-eye toggle-password"></i>
                     </div>
-                    <button type="submit" class="btn">Sign Up</button>
+                    <button type="submit" class="btn btn-primary">Sign Up</button>
                 </form>
             </div>
             <div class="social-login">
                 <p>Or sign in with:</p>
-                <button id="googleLogin" class="social-btn google-btn">
+                <button id="googleLogin" class="btn btn-social btn-google">
                     <i class="fab fa-google"></i> Google
                 </button>
-                <button id="twitterLogin" class="social-btn twitter-btn">
+                <button id="twitterLogin" class="btn btn-social btn-twitter">
                     <i class="fab fa-twitter"></i> Twitter
                 </button>
             </div>
