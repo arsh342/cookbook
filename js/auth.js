@@ -18,10 +18,6 @@ document.addEventListener('DOMContentLoaded', function() {
     const profileButton = document.getElementById('profileButton');
     const logoutButton = document.getElementById('logoutButton');
     const dashboard = document.getElementById('dashboard');
-    const googleLoginBtn = document.getElementById('googleLogin');
-    const forgotPasswordLink = document.getElementById('forgotPassword');
-    const signinForm = document.getElementById('signinForm');
-    const signupForm = document.getElementById('signupForm');
 
     let currentUser = null;
 
@@ -43,7 +39,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     function updateUIForAuthStatus(isLoggedIn) {
-        if (isLoggedIn) {
+        if  (isLoggedIn) {
             if (authButtons) authButtons.style.display = 'none';
             if (mobileAuthButtons) mobileAuthButtons.style.display = 'none';
             if (userProfile) userProfile.style.display = 'flex';
@@ -138,84 +134,6 @@ document.addEventListener('DOMContentLoaded', function() {
             }).catch((error) => {
                 console.error('Error signing out:', error);
             });
-        });
-    }
-
-    if (googleLoginBtn) {
-        googleLoginBtn.addEventListener('click', function() {
-            const provider = new firebase.auth.GoogleAuthProvider();
-            firebase.auth().signInWithPopup(provider)
-                .then((result) => {
-                    console.log('Google sign-in successful');
-                    currentUser = result.user;
-                    fetchUserData();
-                    window.location.href = 'index.html';
-                })
-                .catch((error) => {
-                    console.error('Error during Google sign-in:', error);
-                });
-        });
-    }
-
-    if (forgotPasswordLink) {
-        forgotPasswordLink.addEventListener('click', function(e) {
-            e.preventDefault();
-            const email = prompt("Please enter your email address:");
-            if (email) {
-                firebase.auth().sendPasswordResetEmail(email)
-                    .then(() => {
-                        alert("Password reset email sent. Please check your inbox.");
-                    })
-                    .catch((error) => {
-                        console.error("Error sending password reset email:", error);
-                        alert("Error sending password reset email. Please try again.");
-                    });
-            }
-        });
-    }
-
-    if (signinForm) {
-        signinForm.addEventListener('submit', function(e) {
-            e.preventDefault();
-            const email = signinForm.querySelector('#signinEmail').value;
-            const password = signinForm.querySelector('#signinPassword').value;
-            firebase.auth().signInWithEmailAndPassword(email, password)
-                .then((userCredential) => {
-                    console.log('User signed in successfully');
-                    currentUser = userCredential.user;
-                    fetchUserData();
-                    window.location.href = 'index.html';
-                })
-                .catch((error) => {
-                    console.error('Error signing in:', error);
-                    alert('Error signing in: ' + error.message);
-                });
-        });
-    }
-
-    if (signupForm) {
-        signupForm.addEventListener('submit', function(e) {
-            e.preventDefault();
-            const email = signupForm.querySelector('#signupEmail').value;
-            const password = signupForm.querySelector('#signupPassword').value;
-            const firstName = signupForm.querySelector('#firstName').value;
-            const lastName = signupForm.querySelector('#lastName').value;
-            firebase.auth().createUserWithEmailAndPassword(email, password)
-                .then((userCredential) => {
-                    console.log('User signed up successfully');
-                    currentUser = userCredential.user;
-                    return currentUser.updateProfile({
-                        displayName: `${firstName} ${lastName}`
-                    });
-                })
-                .then(() => {
-                    createNewUserDocument(currentUser);
-                    window.location.href = 'index.html';
-                })
-                .catch((error) => {
-                    console.error('Error signing up:', error);
-                    alert('Error signing up: ' + error.message);
-                });
         });
     }
 

@@ -10,44 +10,48 @@ const searchInput = document.querySelector(
 );
 const searchInputContainer = document.querySelector(".search-input-container");
 
-menuIcon.addEventListener("click", () => {
-  mobileMenuItems.classList.add("active");
-});
+if (menuIcon) {
+    menuIcon.addEventListener("click", () => {
+        mobileMenuItems.classList.add("active");
+    });
+}
 
-closeIcon.addEventListener("click", () => {
-  mobileMenuItems.classList.remove("active");
-});
+if (closeIcon) {
+    closeIcon.addEventListener("click", () => {
+        mobileMenuItems.classList.remove("active");
+    });
+}
 
 allMobileMenuLinks.forEach((l) => {
-  l.addEventListener("click", () => {
-    mobileMenuItems.classList.remove("active");
-  });
+    l.addEventListener("click", () => {
+        mobileMenuItems.classList.remove("active");
+    });
 });
 
 // Search icon
-
-searchIcons.forEach((searchIcon) => {
-  searchIcon.addEventListener("click", () => {
-    searchContainer.classList.add("active");
-    searchInput.focus();
-  });
-});
+if (searchIcons) {
+    searchIcons.forEach((searchIcon) => {
+        searchIcon.addEventListener("click", () => {
+            searchContainer.classList.add("active");
+            searchInput.focus();
+        });
+    });
+}
 
 document.addEventListener("keydown", (e) => {
-  if (e.key === "Escape") {
-    searchContainer.classList.remove("active");
-    searchInput.value = "";
-  }
+    if (e.key === "Escape") {
+        searchContainer.classList.remove("active");
+        searchInput.value = "";
+    }
 });
 
 document.addEventListener("click", (e) => {
-  if (
-    e.target.closest(".search-input-container") ||
-    e.target.closest(".search-icon")
-  )
-    return;
+    if (
+        e.target.closest(".search-input-container") ||
+        e.target.closest(".search-icon")
+    )
+        return;
 
-  searchContainer.classList.remove("active");
-  searchInput.value = "";
+    searchContainer.classList.remove("active");
+    searchInput.value = "";
 });
-

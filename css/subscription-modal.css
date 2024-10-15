@@ -1,0 +1,155 @@
+.subscription-plans {
+    display: flex;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+    gap: 50px;
+    margin: 0 100px;
+}
+
+.plan {
+    flex: 1;
+    min-width: 250px;
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 20px;
+    padding: 20px;
+    margin-bottom: 50px;
+    text-align: center;
+}
+
+.plan h3 {
+    color: var(--primary-color);
+    margin-bottom: 10px;
+}
+
+.plan .price {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.plan ul {
+    list-style-type: none;
+    padding: 0;
+    margin-bottom: 20px;
+    margin-left: 100px;
+}
+
+.plan ul li {
+    margin-bottom: 10px;
+    display: flex;
+}
+
+/* .plan ul li i {
+    margin-right: 5px;
+} */
+
+.plan ul li img {
+    width: 23px;
+    height: 23px;
+    margin-right: 20px;
+}
+
+.plan ul li i.fa-times {
+    color: #f44336;
+}
+
+.plan-btn {
+    background-color: var(--accent-color);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.plan-btn:hover {
+    background-color: var(--dark-color);
+}
+#checkoutModal {
+    display: none;
+    position: fixed;
+    z-index: 1101;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.4);
+}
+
+#checkoutModal .modal-content {
+    background-color: #fefefe;
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+    max-width: 500px;
+    border-radius: 10px;
+    position: fixed;
+    top: -20%;
+    left: 35%;
+}
+
+#checkoutModal .close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+#checkoutModal .close:hover,
+#checkoutModal .close:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+#checkoutDetails {
+    margin-bottom: 20px;
+}
+
+#paymentForm {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.payment-options {
+    display: flex;
+    gap: 20px;
+}
+
+#creditCardFields {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+#creditCardFields input {
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+#confirmPayment {
+    background-color: var(--accent-color);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+#confirmPayment:hover {
+    background-color: var(--dark-color);
+}
+
+@media (max-width: 768px) {
+    .subscription-plans {
+        flex-direction: column;
+    }
+}

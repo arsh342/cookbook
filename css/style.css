@@ -133,6 +133,27 @@ footer {
   border-bottom-left-radius: 0px;
   border: 0px;
 }
+.action_btn#subscribeBtn {
+  background-color: var(--accent-color);
+  color: #fff;
+  padding: 0.5rem 1rem;
+  border: none;
+  outline: none;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: scale 0.2 ease;
+}
+
+.action_btn#subscribeBtn:hover {
+  scale: 1.05;
+  color: #fff;
+}
+
+.action_btn#subscribeBtn:active {
+  scale: 0.95;
+}
 
 .btnSearch:hover {
   background-color: #3e4f29;
