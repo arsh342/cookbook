@@ -1,32 +1,108 @@
+// Ensure Firebase is initialized
+if (!firebase.apps.length) {
+    const firebaseConfig = {
+        apiKey: "AIzaSyD0G0FgE-vOLXoXIEf5QtSYnNrLiNznGdQ",
+        authDomain: "login-form-930c5.firebaseapp.com",
+        projectId: "login-form-930c5",
+        storageBucket: "login-form-930c5.appspot.com",
+        messagingSenderId: "1007013620345",
+        appId: "1:1007013620345:web:f9d7514004086d45af82a8"
+    };
+    firebase.initializeApp(firebaseConfig);
+}
+
+const auth = firebase.auth();
+const db = firebase.firestore();
+
 document.addEventListener('DOMContentLoaded', function() {
-    const planButtons = document.querySelectorAll('.plan-btn');
+    const subscribeBtn = document.getElementById('subscribeBtn');
+    const mobileSubscribeBtn = document.getElementById('mobileSubscribeBtn');
+    const subscriptionModal = document.getElementById('subscriptionModal');
     const checkoutModal = document.getElementById('checkoutModal');
+    const closeSubscriptionBtn = subscriptionModal.querySelector('.close');
     const closeCheckoutBtn = checkoutModal.querySelector('.close');
+    const planButtons = subscriptionModal.querySelectorAll('.plan-btn');
+    const newsletterBtn = document.querySelector('.btn-light');
+    const dashboardSubscriptionStatus = document.getElementById('subscriptionStatus');
     const paymentForm = document.getElementById('paymentForm');
 
-    planButtons.forEach(button => {
-        button.addEventListener('click', function() {
-            const selectedPlan = this.getAttribute('data-plan');
-            openCheckoutModal(selectedPlan);
-        });
-    });
+    let currentUser = null;
+    let selectedPlan = null;
 
-    closeCheckoutBtn.addEventListener('click', () => {
-        checkoutModal.style.display = 'none';
-    });
-
-    window.addEventListener('click', function(event) {
-        if (event.target === checkoutModal) {
-            checkoutModal.style.display = 'none';
+    auth.onAuthStateChanged(function(user) {
+        if (user) {
+            currentUser = user;
+            checkUserSubscription();
+        } else {
+            currentUser = null;
+            updateUIForLoggedOutUser();
         }
     });
 
-    paymentForm.addEventListener('submit', function(e) {
-        e.preventDefault();
-        processPayment();
-    });
+    function checkUserSubscription() {
+        db.collection('users').doc(currentUser.uid).get().then((doc) => {
+            if (doc.exists) {
+                const userData = doc.data();
+                updateUIForLoggedInUser(userData.subscriptionPlan || 'free', userData.isSubscribedToNewsletter || false);
+            } else {
+                console.log("No user data found!");
+                updateUIForLoggedInUser('free', false);
+            }
+        }).catch((error) => {
+            console.error("Error getting user data:", error);
+        });
+    }
+
+    function updateUIForLoggedInUser(subscriptionPlan, isSubscribedToNewsletter) {
+        subscribeBtn.textContent = 'Change Subscription';
+        subscribeBtn.disabled = false;
+        if (mobileSubscribeBtn) {
+            mobileSubscribeBtn.textContent = 'Change Subscription';
+            mobileSubscribeBtn.disabled = false;
+        }
+        if (dashboardSubscriptionStatus) {
+            dashboardSubscriptionStatus.textContent = `Current Plan: ${subscriptionPlan.charAt(0).toUpperCase() + subscriptionPlan.slice(1)}`;
+        }
+        updateNewsletterButtonStatus(isSubscribedToNewsletter);
+    }
+
+    function updateUIForLoggedOutUser() {
+        subscribeBtn.textContent = 'Subscribe';
+        subscribeBtn.disabled = true;
+        if (mobileSubscribeBtn) {
+            mobileSubscribeBtn.textContent = 'Subscribe';
+            mobileSubscribeBtn.disabled = true;
+        }
+        if (dashboardSubscriptionStatus) {
+            dashboardSubscriptionStatus.textContent = 'Please log in to view subscription status';
+        }
+        updateNewsletterButtonStatus(false);
+    }
+
+    function updateNewsletterButtonStatus(isSubscribed) {
+        if (newsletterBtn) {
+            if (isSubscribed) {
+                newsletterBtn.textContent = 'Unsubscribe from Newsletter';
+            } else {
+                newsletterBtn.textContent = 'Subscribe to Newsletter';
+            }
+        }
+    }
+
+    function openSubscriptionModal() {
+        if (currentUser) {
+            subscriptionModal.style.display = 'block';
+        } else {
+            alert('Please log in to view subscription options.');
+        }
+    }
+
+    function closeSubscriptionModal() {
+        subscriptionModal.style.display = 'none';
+    }
 
     function openCheckoutModal(plan) {
+        selectedPlan = plan;
         const planPrice = getPlanPrice(plan);
         const tax = planPrice * 0.1;
         const total = planPrice + tax;
@@ -36,7 +112,12 @@ document.addEventListener('DOMContentLoaded', function() {
         document.getElementById('checkoutTax').textContent = tax.toFixed(2);
         document.getElementById('checkoutTotal').textContent = total.toFixed(2);
 
+        subscriptionModal.style.display = 'none';
         checkoutModal.style.display = 'block';
+    }
+
+    function closeCheckoutModal() {
+        checkoutModal.style.display = 'none';
     }
 
     function getPlanPrice(plan) {
@@ -52,9 +133,91 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
+    if (subscribeBtn) {
+        subscribeBtn.addEventListener('click', openSubscriptionModal);
+    }
+    if (mobileSubscribeBtn) {
+        mobileSubscribeBtn.addEventListener('click', openSubscriptionModal);
+    }
+    if (closeSubscriptionBtn) {
+        closeSubscriptionBtn.addEventListener('click', closeSubscriptionModal);
+    }
+    if (closeCheckoutBtn) {
+        closeCheckoutBtn.addEventListener('click', closeCheckoutModal);
+    }
+
+    window.addEventListener('click', function(event) {
+        if (event.target === subscriptionModal) {
+            closeSubscriptionModal();
+        }
+        if (event.target === checkoutModal) {
+            closeCheckoutModal();
+        }
+    });
+
+    planButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            const selectedPlan = this.getAttribute('data-plan');
+            openCheckoutModal(selectedPlan);
+        });
+    });
+
+    if (paymentForm) {
+        paymentForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            processPayment();
+        });
+    }
+
     function processPayment() {
-        // Implement payment processing logic here
-        alert('Payment processed successfully!');
-        checkoutModal.style.display = 'none';
+        if (!currentUser) {
+            alert('Please log in to subscribe.');
+            return;
+        }
+
+        // Here you would typically integrate with a payment gateway
+        // For this example, we'll just simulate a successful payment
+
+        db.collection('users').doc(currentUser.uid).update({
+            subscriptionPlan: selectedPlan
+        }).then(() => {
+            alert(`You have successfully subscribed to the ${selectedPlan} plan!`);
+            closeCheckoutModal();
+            checkUserSubscription();
+        }).catch((error) => {
+            console.error("Error updating subscription:", error);
+            alert("An error occurred while subscribing. Please try again.");
+        });
+    }
+
+    if (newsletterBtn) {
+        newsletterBtn.addEventListener('click', function() {
+            if (!currentUser) {
+                alert('Please log in to subscribe to the newsletter.');
+                return;
+            }
+
+            db.collection('users').doc(currentUser.uid).get().then((doc) => {
+                const userData = doc.data();
+                const isCurrentlySubscribed = userData.isSubscribedToNewsletter || false;
+                
+                db.collection('users').doc(currentUser.uid).update({
+                    isSubscribedToNewsletter: !isCurrentlySubscribed
+                }).then(() => {
+                    if (isCurrentlySubscribed) {
+                        alert('You have successfully unsubscribed from our newsletter.');
+                    } else {
+                        alert('You have successfully subscribed to our newsletter!');
+                    }
+                    checkUserSubscription();
+                }).catch((error) => {
+                    console.error("Error updating newsletter subscription:", error);
+                    alert("An error occurred. Please try again.");
+                });
+            }).catch((error) => {
+                console.error("Error getting user data:", error);
+                alert("An error occurred. Please try again.");
+            });
+        });
     }
 });

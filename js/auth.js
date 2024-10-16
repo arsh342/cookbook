@@ -82,7 +82,8 @@ document.addEventListener('DOMContentLoaded', function() {
             accountStatus: 'free',
             wishlistRecipes: [],
             favoriteRecipes: [],
-            sharedRecipes: []
+            sharedRecipes: [],
+            subscriptionPlan: 'free'
         };
 
         firebase.firestore().collection('users').doc(user.uid).set(userData)
@@ -103,10 +104,12 @@ document.addEventListener('DOMContentLoaded', function() {
         const wishlistCount = dashboard.querySelector('#wishlistCount');
         const favoriteCount = dashboard.querySelector('#favoriteCount');
         const sharedCount = dashboard.querySelector('#sharedCount');
+        const dashboardSubscriptionStatus = dashboard.querySelector('#dashboardSubscriptionStatus');
 
         if (dashboardUserName) dashboardUserName.textContent = userData.displayName || 'User';
         if (dashboardUserEmail) dashboardUserEmail.textContent = userData.email;
         if (accountStatus) accountStatus.textContent = userData.accountStatus === 'paid' ? 'Premium Account' : 'Free Account';
+        if (dashboardSubscriptionStatus) dashboardSubscriptionStatus.textContent = `Current Plan: ${userData.subscriptionPlan ? userData.subscriptionPlan.charAt(0).toUpperCase() + userData.subscriptionPlan.slice(1) : 'Free'}`;
         if (wishlistCount) wishlistCount.textContent = `${userData.wishlistRecipes?.length || 0} recipes`;
         if (favoriteCount) favoriteCount.textContent = `${userData.favoriteRecipes?.length || 0} recipes`;
         if (sharedCount) sharedCount.textContent = `${userData.sharedRecipes?.length || 0} recipes`;

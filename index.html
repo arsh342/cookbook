@@ -25,6 +25,7 @@
                 <li><a href="meal-index.html">Recipes</a></li>
                 <li><a href="Contact.html">Add Recipes</a></li>
                 <li><a href="blog-list.html">Blog</a></li>
+                <li><button id="subscribeBtn" class="action_btn">Subscribe</button></li>
             </ul>
             <div id="authButtons">
                 <a href="fire-index.html" class="action_btn">Log In</a>
@@ -57,8 +58,9 @@
                 <div class="user-details">
                     <h2 id="dashboardUserName">John Doe</h2>
                     <p id="dashboardUserEmail">johndoe@example.com</p>
-                    <p id="accountStatus" class="account-status">Free Account</p>
-                    <p id="subscriptionStatus">Loading subscription status...</p>
+                    <p id="accountStatus">Your account status is:</p>
+        <p id="subscriptionStatus">Loading subscription status...</p>
+    </div>
                 </div>
                 <button id="logoutButton" class="logout-button">Logout</button>
             </div>
@@ -187,44 +189,50 @@
         </div>
     </div>
     <!-- Subscription Plans -->
-    <div class="subscription-plans">
-        <div class="plan">
-            <h3>Free</h3>
-            <p class="price">$0/month</p>
-            <ul>
-                <li><img src="https://i.postimg.cc/3RFfpBmf/Check.png">Basic recipes</li>
-                <li><img src="https://i.postimg.cc/3RFfpBmf/Check.png">Limited community features</li>
-                <li><img src="https://i.postimg.cc/mkZXSHSL/Cross.png">Share recipes</li>
-                <li><img src="https://i.postimg.cc/mkZXSHSL/Cross.png">Newsletter</li>
-                <li><img src="https://i.postimg.cc/mkZXSHSL/Cross.png">Video lessons</li>
-            </ul>
-            <button class="plan-btn" data-plan="free">Select Plan</button>
-        </div>
-        <div class="plan">
-            <h3>Tier 1</h3>
-            <p class="price">$9.99/month</p>
-            <ul>
-                <li><img src="https://i.postimg.cc/3RFfpBmf/Check.png">All recipes</li>
-                <li><img src="https://i.postimg.cc/3RFfpBmf/Check.png">Full community features</li>
-                <li><img src="https://i.postimg.cc/3RFfpBmf/Check.png">Share recipes</li>
-                <li><img src="https://i.postimg.cc/3RFfpBmf/Check.png">Newsletter</li>
-                <li><img src="https://i.postimg.cc/mkZXSHSL/Cross.png">Video lessons</li>
-            </ul>
-            <button class="plan-btn" data-plan="tier1">Select Plan</button>
-        </div>
-        <div class="plan">
-            <h3>Tier 2</h3>
-            <p class="price">$19.99/month</p>
-            <ul>
-                <li><img src="https://i.postimg.cc/3RFfpBmf/Check.png">All recipes</li>
-                <li><img src="https://i.postimg.cc/3RFfpBmf/Check.png">Full community features</li>
-                <li><img src="https://i.postimg.cc/3RFfpBmf/Check.png">Share recipes</li>
-                <li><img src="https://i.postimg.cc/3RFfpBmf/Check.png">Newsletter</li>
-                <li><img src="https://i.postimg.cc/3RFfpBmf/Check.png">Video lessons</li>
-            </ul>
-            <button class="plan-btn" data-plan="tier2">Select Plan</button>
-        </div>
-    </div>
+    <div id="subscriptionModal" class="modal">
+      <div class="modal-content">
+          <span class="close">&times;</span>
+          <h2>Choose Your Subscription Plan</h2>
+          <div class="subscription-plans">
+              <div class="plan">
+                  <h3>Free</h3>
+                  <p class="price">$0/month</p>
+                  <ul>
+                      <li><i class="fas fa-check"></i> Basic recipes</li>
+                      <li><i class="fas fa-check"></i> Limited community features</li>
+                      <li><i class="fas fa-times"></i> Share recipes</li>
+                      <li><i class="fas fa-times"></i> Newsletter</li>
+                      <li><i class="fas fa-times"></i> Video lessons</li>
+                  </ul>
+                  <button class="plan-btn" data-plan="free">Select Plan</button>
+              </div>
+              <div class="plan">
+                  <h3>Tier 1</h3>
+                  <p class="price">$9.99/month</p>
+                  <ul>
+                      <li><i class="fas fa-check"></i> All recipes</li>
+                      <li><i class="fas fa-check"></i> Full community features</li>
+                      <li><i class="fas fa-check"></i> Share recipes</li>
+                      <li><i class="fas fa-check"></i> Newsletter</li>
+                      <li><i class="fas fa-times"></i> Video lessons</li>
+                  </ul>
+                  <button class="plan-btn" data-plan="tier1">Select Plan</button>
+              </div>
+              <div class="plan">
+                  <h3>Tier 2</h3>
+                  <p class="price">$19.99/month</p>
+                  <ul>
+                      <li><i class="fas fa-check"></i> All recipes</li>
+                      <li><i class="fas fa-check"></i> Full community features</li>
+                      <li><i class="fas fa-check"></i> Share recipes</li>
+                      <li><i class="fas fa-check"></i> Newsletter</li>
+                      <li><i class="fas fa-check"></i> Video lessons</li>
+                  </ul>
+                  <button class="plan-btn" data-plan="tier2">Select Plan</button>
+              </div>
+          </div>
+      </div>
+  </div>
 </section>
 
   <!-- End of about section  -->
@@ -357,29 +365,33 @@
         <span class="close">&times;</span>
         <h2>Checkout</h2>
         <div id="checkoutDetails">
-            <p><strong>Plan:</strong> <span id="checkoutPlan"></span></p>
-            <p><strong>Price:</strong> $<span id="checkoutPrice"></span></p>
-            <p><strong>Tax:</strong> $<span id="checkoutTax"></span></p>
-            <p><strong>Total:</strong> $<span id="checkoutTotal"></span></p>
+            <p>Plan: <span id="checkoutPlan"></span></p>
+            <p>Price: $<span id="checkoutPrice"></span></p>
+            <p>Tax (10%): $<span id="checkoutTax"></span></p>
+            <p>Total: $<span id="checkoutTotal"></span></p>
         </div>
         <form id="paymentForm">
+            <h3>Payment Method</h3>
             <div class="payment-options">
                 <label>
-                    <input type="radio" name="paymentMethod" value="creditCard" checked> Credit Card
+                    <input type="radio" name="paymentMethod" value="creditCard" checked>
+                    Credit Card
                 </label>
                 <label>
-                    <input type="radio" name="paymentMethod" value="paypal"> PayPal
+                    <input type="radio" name="paymentMethod" value="paypal">
+                    PayPal
                 </label>
             </div>
             <div id="creditCardFields">
-                <input type="text" id="cardName" placeholder="Name on Card" required>
-                <input type="text" id="cardNumber" placeholder="Card Number" required>
-                <input type="text" id="expiryDate" placeholder="Expiry Date (MM/YY)" required>
-                <input type="text" id="cvv" placeholder="CVV" required>
+                <input type="text" placeholder="Card Number" required>
+                <input type="text" placeholder="MM/YY" required>
+                <input type="text" placeholder="CVC" required>
             </div>
-            <button id="confirmPayment" type="submit">Confirm Payment</button>
+            <button type="submit" id="confirmPayment">Confirm Payment</button>
         </form>
     </div>
+</div>
+
 </div>
 
 
