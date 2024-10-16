@@ -9,7 +9,12 @@ const firebaseConfig = {
 };
 
 // Initialize Firebase
-firebase.initializeApp(firebaseConfig);
+if (!firebase.apps.length) {
+    firebase.initializeApp(firebaseConfig);
+}
+
+const auth = firebase.auth();
+const db = firebase.firestore();
 
 document.addEventListener('DOMContentLoaded', function() {
     const authButtons = document.getElementById('authButtons');
@@ -18,14 +23,18 @@ document.addEventListener('DOMContentLoaded', function() {
     const profileButton = document.getElementById('profileButton');
     const logoutButton = document.getElementById('logoutButton');
     const dashboard = document.getElementById('dashboard');
+    const loginForm = document.getElementById('loginForm');
+    const signupForm = document.getElementById('signupForm');
+    const googleSignInButton = document.getElementById('googleSignIn');
 
     let currentUser = null;
 
     function checkAuthStatus() {
-        firebase.auth().onAuthStateChanged(function(user) {
+        auth.onAuthStateChanged(function(user) {
             if (user) {
                 currentUser = user;
-                fetchUserData();
+                console.log('User is signed in:', user);
+                fetchUserData(user);
                 updateUIForAuthStatus(true);
                 // Redirect to index.html if on fire-index.html
                 if (window.location.pathname.includes('fire-index.html')) {
@@ -33,13 +42,14 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
             } else {
                 currentUser = null;
+                console.log('No user is signed in.');
                 updateUIForAuthStatus(false);
             }
         });
     }
 
     function updateUIForAuthStatus(isLoggedIn) {
-        if  (isLoggedIn) {
+        if (isLoggedIn) {
             if (authButtons) authButtons.style.display = 'none';
             if (mobileAuthButtons) mobileAuthButtons.style.display = 'none';
             if (userProfile) userProfile.style.display = 'flex';
@@ -57,16 +67,15 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
-    function fetchUserData() {
-        if (!currentUser) return;
-        firebase.firestore().collection('users').doc(currentUser.uid).get()
+    function fetchUserData(user) {
+        db.collection('users').doc(user.uid).get()
             .then((doc) => {
-                if (doc.exists) {
+                if (doc.exists)   {
                     const userData = doc.data();
                     updateDashboardData(userData);
                 } else {
                     console.log("No user data found!");
-                    createNewUserDocument(currentUser);
+                    createNewUserDocument(user);
                 }
             })
             .catch((error) => {
@@ -86,7 +95,7 @@ document.addEventListener('DOMContentLoaded', function() {
             subscriptionPlan: 'free'
         };
 
-        firebase.firestore().collection('users').doc(user.uid).set(userData)
+        db.collection('users').doc(user.uid).set(userData)
             .then(() => {
                 console.log("New user document created");
                 updateDashboardData(userData);
@@ -104,7 +113,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const wishlistCount = dashboard.querySelector('#wishlistCount');
         const favoriteCount = dashboard.querySelector('#favoriteCount');
         const sharedCount = dashboard.querySelector('#sharedCount');
-        const dashboardSubscriptionStatus = dashboard.querySelector('#dashboardSubscriptionStatus');
+        const dashboardSubscriptionStatus = dashboard.querySelector('#subscriptionStatus');
 
         if (dashboardUserName) dashboardUserName.textContent = userData.displayName || 'User';
         if (dashboardUserEmail) dashboardUserEmail.textContent = userData.email;
@@ -119,7 +128,7 @@ document.addEventListener('DOMContentLoaded', function() {
         if (!dashboard) return;
         if (dashboard.style.display === 'none') {
             dashboard.style.display = 'block';
-            fetchUserData();
+            fetchUserData(auth.currentUser);
         } else {
             dashboard.style.display = 'none';
         }
@@ -131,12 +140,71 @@ document.addEventListener('DOMContentLoaded', function() {
 
     if (logoutButton) {
         logoutButton.addEventListener('click', function() {
-            firebase.auth().signOut().then(() => {
+            auth.signOut().then(() => {
                 console.log('User signed out successfully');
                 window.location.href = 'fire-index.html';
             }).catch((error) => {
                 console.error('Error signing out:', error);
             });
+        });
+    }
+
+    if (loginForm) {
+        loginForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            const email = loginForm.querySelector('#loginEmail').value;
+            const password = loginForm.querySelector('#loginPassword').value;
+            
+            auth.signInWithEmailAndPassword(email, password)
+                .then((userCredential) => {
+                    console.log('User logged in successfully:', userCredential.user);
+                    window.location.href = 'index.html';
+                })
+                .catch((error) => {
+                    console.error('Error logging in:', error);
+                    alert('Failed to log in. Please check your credentials and try again.');
+                });
+        });
+    }
+
+    if (signupForm) {
+        signupForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            const email = signupForm.querySelector('#signupEmail').value;
+            const password = signupForm.querySelector('#signupPassword').value;
+            const displayName = signupForm.querySelector('#signupName').value;
+            
+            auth.createUserWithEmailAndPassword(email, password)
+                .then((userCredential) => {
+                    console.log('User signed up successfully:', userCredential.user);
+                    return userCredential.user.updateProfile({
+                        displayName: displayName
+                    });
+                })
+                .then(() => {
+                    createNewUserDocument(auth.currentUser);
+                    window.location.href = 'index.html';
+                })
+                .catch((error) => {
+                    console.error('Error signing up:', error);
+                    alert('Failed to sign up. Please try again.');
+                });
+        });
+    }
+
+    if (googleSignInButton) {
+        googleSignInButton.addEventListener('click', function() {
+            const provider = new firebase.auth.GoogleAuthProvider();
+            auth.signInWithPopup(provider)
+                .then((result) => {
+                    console.log('User signed in with Google:', result.user);
+                    fetchUserData(result.user);
+                    window.location.href = 'index.html';
+                })
+                .catch((error) => {
+                    console.error('Error signing in with Google:', error);
+                    alert('Failed to sign in with Google. Please try again.');
+                });
         });
     }
 

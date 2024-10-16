@@ -1,19 +1,3 @@
-// Ensure Firebase is initialized
-if (!firebase.apps.length) {
-    const firebaseConfig = {
-        apiKey: "AIzaSyD0G0FgE-vOLXoXIEf5QtSYnNrLiNznGdQ",
-        authDomain: "login-form-930c5.firebaseapp.com",
-        projectId: "login-form-930c5",
-        storageBucket: "login-form-930c5.appspot.com",
-        messagingSenderId: "1007013620345",
-        appId: "1:1007013620345:web:f9d7514004086d45af82a8"
-    };
-    firebase.initializeApp(firebaseConfig);
-}
-
-const auth = firebase.auth();
-const db = firebase.firestore();
-
 document.addEventListener('DOMContentLoaded', function() {
     const subscribeBtn = document.getElementById('subscribeBtn');
     const mobileSubscribeBtn = document.getElementById('mobileSubscribeBtn');
@@ -29,7 +13,7 @@ document.addEventListener('DOMContentLoaded', function() {
     let currentUser = null;
     let selectedPlan = null;
 
-    auth.onAuthStateChanged(function(user) {
+    firebase.auth().onAuthStateChanged(function(user) {
         if (user) {
             currentUser = user;
             checkUserSubscription();
@@ -40,7 +24,7 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     function checkUserSubscription() {
-        db.collection('users').doc(currentUser.uid).get().then((doc) => {
+        firebase.firestore().collection('users').doc(currentUser.uid).get().then((doc) => {
             if (doc.exists) {
                 const userData = doc.data();
                 updateUIForLoggedInUser(userData.subscriptionPlan || 'free', userData.isSubscribedToNewsletter || false);
@@ -133,18 +117,12 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
-    if (subscribeBtn) {
-        subscribeBtn.addEventListener('click', openSubscriptionModal);
-    }
+    subscribeBtn.addEventListener('click', openSubscriptionModal);
     if (mobileSubscribeBtn) {
         mobileSubscribeBtn.addEventListener('click', openSubscriptionModal);
     }
-    if (closeSubscriptionBtn) {
-        closeSubscriptionBtn.addEventListener('click', closeSubscriptionModal);
-    }
-    if (closeCheckoutBtn) {
-        closeCheckoutBtn.addEventListener('click', closeCheckoutModal);
-    }
+    closeSubscriptionBtn.addEventListener('click', closeSubscriptionModal);
+    closeCheckoutBtn.addEventListener('click', closeCheckoutModal);
 
     window.addEventListener('click', function(event) {
         if (event.target === subscriptionModal) {
@@ -162,12 +140,10 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    if (paymentForm) {
-        paymentForm.addEventListener('submit', function(e) {
-            e.preventDefault();
-            processPayment();
-        });
-    }
+    paymentForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+        processPayment();
+    });
 
     function processPayment() {
         if (!currentUser) {
@@ -178,7 +154,7 @@ document.addEventListener('DOMContentLoaded', function() {
         // Here you would typically integrate with a payment gateway
         // For this example, we'll just simulate a successful payment
 
-        db.collection('users').doc(currentUser.uid).update({
+        firebase.firestore().collection('users').doc(currentUser.uid).update({
             subscriptionPlan: selectedPlan
         }).then(() => {
             alert(`You have successfully subscribed to the ${selectedPlan} plan!`);
@@ -197,11 +173,11 @@ document.addEventListener('DOMContentLoaded', function() {
                 return;
             }
 
-            db.collection('users').doc(currentUser.uid).get().then((doc) => {
+            firebase.firestore().collection('users').doc(currentUser.uid).get().then((doc) => {
                 const userData = doc.data();
                 const isCurrentlySubscribed = userData.isSubscribedToNewsletter || false;
                 
-                db.collection('users').doc(currentUser.uid).update({
+                firebase.firestore().collection('users').doc(currentUser.uid).update({
                     isSubscribedToNewsletter: !isCurrentlySubscribed
                 }).then(() => {
                     if (isCurrentlySubscribed) {
