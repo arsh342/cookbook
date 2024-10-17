@@ -60,3 +60,32 @@ dots.forEach((item, position) => {
         setSlider();
     }
 })
+
+// Add this function to handle the "View Recipe" button clicks
+function handleViewRecipeButtons() {
+    const viewRecipeButtons = document.querySelectorAll('.carousel .more button');
+    viewRecipeButtons.forEach((button, index) => {
+      button.addEventListener('click', () => {
+        const recipes = [
+          { id: '52920', name: 'Chicken Marengo' },
+          { id: '52770', name: 'Spaghetti Bolognese' },
+          { id: '52852', name: 'Tuna Nicoise' }
+        ];
+        const recipe = recipes[index];
+        if (recipe) {
+          // Redirect to the recipe page
+          window.location.href = `meal-details.html?id=${recipe.id}`;
+        } else {
+          console.error('Recipe not found');
+        }
+      });
+    });
+  }
+  
+  // Call this function after the DOM is loaded
+  document.addEventListener('DOMContentLoaded', () => {
+    // Existing carousel initialization code...
+    
+    // Initialize the view recipe buttons
+    handleViewRecipeButtons();
+  });

@@ -48,6 +48,11 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
+
+    function saveLoginState(isLoggedIn) {
+        localStorage.setItem('isLoggedIn', JSON.stringify(isLoggedIn));
+    }
+
     function updateUIForAuthStatus(isLoggedIn) {
         if (isLoggedIn) {
             if (authButtons) authButtons.style.display = 'none';
@@ -105,6 +110,7 @@ document.addEventListener('DOMContentLoaded', function() {
             });
     }
 
+
     function updateDashboardData(userData) {
         if (!dashboard) return;
         const dashboardUserName = dashboard.querySelector('#dashboardUserName');
@@ -114,14 +120,33 @@ document.addEventListener('DOMContentLoaded', function() {
         const favoriteCount = dashboard.querySelector('#favoriteCount');
         const sharedCount = dashboard.querySelector('#sharedCount');
         const dashboardSubscriptionStatus = dashboard.querySelector('#subscriptionStatus');
+        const dashboardUserAvatar = dashboard.querySelector('#dashboardUserAvatar');
 
         if (dashboardUserName) dashboardUserName.textContent = userData.displayName || 'User';
         if (dashboardUserEmail) dashboardUserEmail.textContent = userData.email;
         if (accountStatus) accountStatus.textContent = userData.accountStatus === 'paid' ? 'Premium Account' : 'Free Account';
-        if (dashboardSubscriptionStatus) dashboardSubscriptionStatus.textContent = `Current Plan: ${userData.subscriptionPlan ? userData.subscriptionPlan.charAt(0).toUpperCase() + userData.subscriptionPlan.slice(1) : 'Free'}`;
+        if (dashboardSubscriptionStatus) dashboardSubscriptionStatus.textContent = `Current Plan: ${userData.subscriptionStatus.charAt(0).toUpperCase() + userData.subscriptionStatus.slice(1)}`;
         if (wishlistCount) wishlistCount.textContent = `${userData.wishlistRecipes?.length || 0} recipes`;
         if (favoriteCount) favoriteCount.textContent = `${userData.favoriteRecipes?.length || 0} recipes`;
         if (sharedCount) sharedCount.textContent = `${userData.sharedRecipes?.length || 0} recipes`;
+        if (dashboardUserAvatar) dashboardUserAvatar.src = currentUser.photoURL || '/placeholder.svg?height=100&width=100';
+    }
+
+    function checkSubscriptionStatus(userData) {
+        // Check if the subscription status has changed
+        if (userData.subscriptionStatus !== userData.accountStatus) {
+            db.collection('users').doc(currentUser.uid).update({
+                accountStatus: userData.subscriptionStatus
+            }).then(() => {
+                console.log("Account status updated to match subscription status");
+            }).catch((error) => {
+                console.error("Error updating account status:", error);
+            });
+        }
+    }
+
+    function toggleProfileDropdown() {
+        profileDropdown.style.display = profileDropdown.style.display === 'block' ? 'none' : 'block';
     }
 
     function toggleDashboard() {
@@ -205,6 +230,43 @@ document.addEventListener('DOMContentLoaded', function() {
                     console.error('Error signing in with Google:', error);
                     alert('Failed to sign in with Google. Please try again.');
                 });
+        });
+    }
+    logoutButton.addEventListener('click', function(e) {
+        e.preventDefault();
+        auth.signOut().then(() => {
+            console.log('User signed out successfully');
+            window.location.href = 'fire-index.html';
+        }).catch((error) => {
+            console.error('Error signing out:', error);
+        });
+    });
+
+
+
+    // Close dropdown when clicking outside
+    document.addEventListener('click', function(e) {
+        if (!userProfile.contains(e.target) && !dashboard.contains(e.target)) {
+            profileDropdown.style.display = 'none';
+            dashboard.style.display = 'none';
+        }
+    });
+
+    // Check login state on page load
+    const isLoggedIn = JSON.parse(localStorage.getItem('isLoggedIn'));
+    if (isLoggedIn) {
+        // User was previously logged in, attempt to restore session
+        auth.onAuthStateChanged(function(user) {
+            if (user) {
+                // Session restored successfully
+                currentUser = user;
+                fetchUserData(user);
+                updateUIForAuthStatus(true);
+            } else {
+                // Session couldn't be restored, clear local storage
+                localStorage.removeItem('isLoggedIn');
+                updateUIForAuthStatus(false);
+            }
         });
     }
 

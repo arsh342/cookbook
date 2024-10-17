@@ -40,10 +40,6 @@
     display: flex;
 }
 
-/* .plan ul li i {
-    margin-right: 5px;
-} */
-
 .plan ul li img {
     width: 23px;
     height: 23px;
@@ -78,19 +74,21 @@
     overflow: auto;
     background-color: rgba(0,0,0,0.4);
 }
-
-#checkoutModal .modal-content {
+.modal-content{
+    padding-top: 100px;
+}
+/* #checkoutModal  .modal-content{
     background-color: #fefefe;
     margin: 15% auto;
     padding: 20px;
     border: 1px solid #888;
     width: 80%;
     max-width: 500px;
-    border-radius: 10px;
+    border-radius: 20px;
     position: fixed;
     top: -20%;
     left: 35%;
-}
+} */
 
 #checkoutModal .close {
     color: #aaa;
