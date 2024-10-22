@@ -48,7 +48,6 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-
     function saveLoginState(isLoggedIn) {
         localStorage.setItem('isLoggedIn', JSON.stringify(isLoggedIn));
     }
@@ -75,7 +74,7 @@ document.addEventListener('DOMContentLoaded', function() {
     function fetchUserData(user) {
         db.collection('users').doc(user.uid).get()
             .then((doc) => {
-                if (doc.exists)   {
+                if (doc.exists) {
                     const userData = doc.data();
                     updateDashboardData(userData);
                 } else {
@@ -110,7 +109,6 @@ document.addEventListener('DOMContentLoaded', function() {
             });
     }
 
-
     function updateDashboardData(userData) {
         if (!dashboard) return;
         const dashboardUserName = dashboard.querySelector('#dashboardUserName');
@@ -125,7 +123,7 @@ document.addEventListener('DOMContentLoaded', function() {
         if (dashboardUserName) dashboardUserName.textContent = userData.displayName || 'User';
         if (dashboardUserEmail) dashboardUserEmail.textContent = userData.email;
         if (accountStatus) accountStatus.textContent = userData.accountStatus === 'paid' ? 'Premium Account' : 'Free Account';
-        if (dashboardSubscriptionStatus) dashboardSubscriptionStatus.textContent = `Current Plan: ${userData.subscriptionStatus.charAt(0).toUpperCase() + userData.subscriptionStatus.slice(1)}`;
+        if (dashboardSubscriptionStatus) dashboardSubscriptionStatus.textContent = `Current Plan: ${userData.subscriptionPlan.charAt(0).toUpperCase() + userData.subscriptionPlan.slice(1)}`;
         if (wishlistCount) wishlistCount.textContent = `${userData.wishlistRecipes?.length || 0} recipes`;
         if (favoriteCount) favoriteCount.textContent = `${userData.favoriteRecipes?.length || 0} recipes`;
         if (sharedCount) sharedCount.textContent = `${userData.sharedRecipes?.length || 0} recipes`;
@@ -134,19 +132,15 @@ document.addEventListener('DOMContentLoaded', function() {
 
     function checkSubscriptionStatus(userData) {
         // Check if the subscription status has changed
-        if (userData.subscriptionStatus !== userData.accountStatus) {
+        if (userData.subscriptionPlan !== userData.accountStatus) {
             db.collection('users').doc(currentUser.uid).update({
-                accountStatus: userData.subscriptionStatus
+                accountStatus: userData.subscriptionPlan
             }).then(() => {
                 console.log("Account status updated to match subscription status");
             }).catch((error) => {
                 console.error("Error updating account status:", error);
             });
         }
-    }
-
-    function toggleProfileDropdown() {
-        profileDropdown.style.display = profileDropdown.style.display === 'block' ? 'none' : 'block';
     }
 
     function toggleDashboard() {
@@ -232,25 +226,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 });
         });
     }
-    logoutButton.addEventListener('click', function(e) {
-        e.preventDefault();
-        auth.signOut().then(() => {
-            console.log('User signed out successfully');
-            window.location.href = 'fire-index.html';
-        }).catch((error) => {
-            console.error('Error signing out:', error);
-        });
-    });
-
-
-
-    // Close dropdown when clicking outside
-    document.addEventListener('click', function(e) {
-        if (!userProfile.contains(e.target) && !dashboard.contains(e.target)) {
-            profileDropdown.style.display = 'none';
-            dashboard.style.display = 'none';
-        }
-    });
 
     // Check login state on page load
     const isLoggedIn = JSON.parse(localStorage.getItem('isLoggedIn'));
