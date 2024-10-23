@@ -1,80 +1,70 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Cookbook | Authrization</title>
-  <link rel="icon" type="image/x-icon" href="https://i.postimg.cc/c1cNhLrW/Untitled-design-removebg-preview.png">
-  <link rel="stylesheet" href="/css/fire-style.css">
-  <script type="module" src="/js/firebaseauth.js"></script>
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
-
-  <style>
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cookbook | Login/Signup</title>
+    <link rel="icon" type="image/x-icon" href="https://i.postimg.cc/c1cNhLrW/Untitled-design-removebg-preview.png">
+    <link rel="stylesheet" href="/css/fire-style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 </head>
-
 <body>
-  <div class="container" id="signup">
-    <h1 class="form-title">Sign Up</h1>
-    <form method="post" action="">
-      <div id="signUpMessage" class="messageDiv" style="display:none;"></div>
-      <div class="input-group">
-        <i class="fas fa-user"></i>
-        <input type="text" id="fName" placeholder="First Name" required>
-      </div>
-      <div class="input-group">
-        <i class="fas fa-user"></i>
-        <input type="text" id="lName" placeholder="Last Name" required>
-      </div>
-      <div class="input-group">
-        <i class="fas fa-envelope"></i>
-        <input type="email" id="rEmail" placeholder="Email" required>
-      </div>
-      <div class="input-group">
-        <i class="fas fa-lock"></i>
-        <input type="password" id="rPassword" placeholder="Password" required>
-        <i id="toggleRegisterPassword" class="fas fa-eye toggle-password"></i>
-      </div>
-      <button class="btn" id="submitSignUp">Sign Up</button>
-    </form>
-    <p class="or">or</p>
-    <div class="icons">
-      <button id="google-Login-btn"><i class="fab fa-google"></i></button>
-      <button id="twitter-Login-btn"><i class="fab fa-twitter"></i></button>
+    <div class="container">
+        <div class="auth-card">
+            <div class="logo">
+                <img src="https://i.postimg.cc/mDBsM7gV/Untitled-5-2-removebg-preview.png" alt="Cookbook Logo">
+            </div>
+            <div class="tabs">
+                <button id="loginTab" class="tab-btn active">Login</button>
+                <button id="signupTab" class="tab-btn">Sign Up</button>
+            </div>
+            <div id="loginForm" class="tab-content active">
+                <h2>Welcome Back</h2>
+                <form>
+                    <div class="input-group">
+                        <i class="fas fa-envelope"></i>
+                        <input type="email" id="loginEmail" placeholder="Email" required>
+                    </div>
+                    <div class="input-group">
+                        <i class="fas fa-lock"></i>
+                        <input type="password" id="loginPassword" placeholder="Password" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Login</button>
+                </form>
+                <div class="forgot-password">
+                    <a href="#" id="forgotPasswordLink">Forgot Password?</a>
+                </div>
+            </div>
+            <div id="signupForm" class="tab-content">
+                <h2>Create Account</h2>
+                <form>
+                    <div class="input-group">
+                        <i class="fas fa-user"></i>
+                        <input type="text" id="signupName" placeholder="Full Name" required>
+                    </div>
+                    <div class="input-group">
+                        <i class="fas fa-envelope"></i>
+                        <input type="email" id="signupEmail" placeholder="Email" required>
+                    </div>
+                    <div class="input-group">
+                        <i class="fas fa-lock"></i>
+                        <input type="password" id="signupPassword" placeholder="Password" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Sign Up</button>
+                </form>
+            </div>
+            <div class="social-login">
+                <button id="googleSignIn" class="btn btn-social btn-google">
+                    <i class="fab fa-google"></i> Sign in with Google
+                </button>
+            </div>
+        </div>
     </div>
-    <div class="links">
-      <p>Already Have an Account?</p>
-      <button id="signInButton">Sign In</button>
-    </div>
-  </div>
 
-  <div class="container" id="signIn" style="display:none;">
-    <h1 class="form-title">Sign In</h1>
-    <form method="post" action="">
-      <div id="signInMessage" class="messageDiv" style="display:none;"></div>
-      <div class="input-group">
-        <i class="fas fa-envelope"></i>
-        <input type="email" id="email" placeholder="Email" required>
-      </div>
-      <div class="input-group">
-        <i class="fas fa-lock"></i>
-        <input type="password" id="password" placeholder="Password" required>
-        <i id="toggleLoginPassword" class="fas fa-eye toggle-password"></i>
-      </div>
-
-      <p class="recover">
-        <a href="recover-password.html">Recover Password</a>
-      </p>
-      <button class="btn" id="submitSignIn">Sign In</button>
-    </form>
-    <div class="links">
-      <p>Don't have an account yet?</p>
-      <button id="signUpButton">Sign Up</button>
-    </div>
-  </div>
-
-  <script src="/js/fire-script.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+    <script src="/js/auth.js"></script>
+    <script src="/js/fire-script.js"></script>
 </body>
-
 </html>
