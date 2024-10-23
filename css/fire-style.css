@@ -83,6 +83,7 @@ h2 {
 
 .input-group {
   position: relative;
+  width: 260px;
   margin-bottom: 20px;
 }
 
@@ -112,9 +113,9 @@ h2 {
 
 .toggle-password {
   position: absolute;
-  right: 15px;
+  right: 0;
   top: 50%;
-  transform: translateY(-50%);
+  transform: translateY(100%);
   cursor: pointer;
   color: #888;
 }
@@ -157,7 +158,7 @@ h2 {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: calc(50% - 5px);
+  width: 100%;
   margin-top: 10px;
   padding: 12px;
   border: 1px solid var(--input-border);
@@ -169,39 +170,9 @@ h2 {
   margin-right: 10px;
 }
 
-.btn-google {
-  margin-right: 5px;
-}
-
 .btn-google:hover {
   background-color: #dd4b39;
   color: #ffffff;
-}
-
-.btn-twitter:hover {
-  background-color: #1da1f2;
-  color: #ffffff;
-}
-
-.message {
-  position: fixed;
-  top: 20px;
-  left: 50%;
-  transform: translateX(-50%);
-  padding: 15px 20px;
-  border-radius: 5px;
-  color: #ffffff;
-  font-size: 16px;
-  display: none;
-  z-index: 1000;
-}
-
-.message.success {
-  background-color: #4caf50;
-}
-
-.message.error {
-  background-color: #f44336;
 }
 
 @media (max-width: 480px) {
@@ -211,14 +182,5 @@ h2 {
 
   .auth-card {
       padding: 30px 20px;
-  }
-
-  .btn-social {
-      width: 100%;
-      margin-right: 0;
-  }
-
-  .btn-google {
-      margin-bottom: 10px;
   }
 }
