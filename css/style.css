@@ -15,6 +15,9 @@ body{
   --dark-color: #537b3f;
   --light-color: #fdfffc;
   --accent-color: #7fa154;
+  --mobile-width: 480px;
+  --tablet-width: 768px;
+  --desktop-width: 1024px;
 }
 li{
   list-style: none;
@@ -192,6 +195,7 @@ footer {
 
 html {
   scroll-behavior: smooth;
+  font-size: clamp(14px, 1vw + 10px, 18px);
 }
 
 .container1 a {
@@ -823,3 +827,18 @@ aside .download-btn {
     gap: 24px;
   }
 } */
+
+/* Improve responsive design */
+@media (max-width: var(--mobile-width)) {
+    .navbar {
+        padding: 0.5rem;
+    }
+    
+    .meal-item {
+        width: 100%;
+    }
+    
+    .search-container {
+        width: 90%;
+    }
+}
