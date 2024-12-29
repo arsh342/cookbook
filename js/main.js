@@ -67,3 +67,23 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 });
+
+// Add caching for API responses
+const cache = new Map();
+
+async function fetchWithCache(url, cacheTime = 3600000) { // 1 hour cache
+    if (cache.has(url)) {
+        const {data, timestamp} = cache.get(url);
+        if (Date.now() - timestamp < cacheTime) {
+            return data;
+        }
+    }
+    
+    const response = await fetch(url);
+    const data = await response.json();
+    cache.set(url, {
+        data,
+        timestamp: Date.now()
+    });
+    return data;
+}

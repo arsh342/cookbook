@@ -172,7 +172,7 @@ function displayMeals(meals, title) {
             html += `
             <div class="meal-item" data-id="${meal.idMeal}">
                 <div class="meal-img">
-                    <img src="${meal.strMealThumb}" alt="${meal.strMeal}">
+                    <img src="${meal.strMealThumb}" alt="${meal.strMeal}" loading="lazy">
                 </div>
                 <div class="meal-name">
                     <h3>${meal.strMeal}</h3>
