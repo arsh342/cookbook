@@ -247,4 +247,61 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Initial setup
     checkAuthStatus();
+
+    // Add better error handling and logging
+    function handleError(error, context) {
+        console.error(`Error in ${context}:`, error);
+        
+        // User-friendly error messages
+        const errorMessages = {
+            'auth/user-not-found': 'No account found with this email',
+            'auth/wrong-password': 'Incorrect password',
+            'auth/email-already-in-use': 'An account already exists with this email'
+        };
+        
+        return errorMessages[error.code] || 'An unexpected error occurred';
+    }
+
+    // Example usage in login
+    loginForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        try {
+            // ... login logic
+        } catch (error) {
+            const message = handleError(error, 'login');
+            alert(message);
+        }
+    });
+
+    // Add input validation and sanitization
+    function sanitizeInput(input) {
+        return input.trim().replace(/[<>]/g, '');
+    }
+
+    // Add rate limiting for authentication attempts
+    const rateLimiter = {
+        attempts: {},
+        maxAttempts: 5,
+        resetTime: 1800000, // 30 minutes
+        
+        checkLimit(email) {
+            const now = Date.now();
+            if (!this.attempts[email]) {
+                this.attempts[email] = { count: 1, timestamp: now };
+                return true;
+            }
+            
+            if (now - this.attempts[email].timestamp > this.resetTime) {
+                this.attempts[email] = { count: 1, timestamp: now };
+                return true;
+            }
+            
+            if (this.attempts[email].count >= this.maxAttempts) {
+                return false;
+            }
+            
+            this.attempts[email].count++;
+            return true;
+        }
+    };
 });
